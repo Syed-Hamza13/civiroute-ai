@@ -1,0 +1,25 @@
+{
+  "name": "civiroute-ai",
+  "version": "1.0.0",
+  "description": "An AI-powered citizen grievance classification and intelligent routing platform that automatically analyzes complaints, categorizes them into the appropriate departments, and improves governance efficiency through smart automation.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Syed-Hamza13/civiroute-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Syed-Hamza13/civiroute-ai/issues"
+  },
+  "homepage": "https://github.com/Syed-Hamza13/civiroute-ai#readme"
+}
