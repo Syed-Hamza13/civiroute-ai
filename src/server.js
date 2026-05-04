@@ -12,7 +12,7 @@ try {
   console.log("✅ MySQL Connected");
 
   app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`🚀 Server running at http://${process.env.HOST}:${PORT}`);
   });
 } catch (error) {
   console.error("❌ Database Connection Failed:", error.message);

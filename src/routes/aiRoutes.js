@@ -20,10 +20,3 @@ router.post("/priority", (req, res) => {
 
 export default router;
 
-
-login.ejs
-signup.ejs
-forgot-password.ejs
-dashboard.ejs
-complaints.ejs
-profile.ejs

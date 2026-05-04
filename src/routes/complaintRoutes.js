@@ -17,7 +17,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   res.send(`Update complaint ID: ${req.params.id}`);
 });
-
+ 
 // Add comment
 router.post("/:id/comment", (req, res) => {
   res.send(`Comment added to complaint ${req.params.id}`);
