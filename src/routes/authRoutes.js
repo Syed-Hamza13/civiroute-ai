@@ -2,6 +2,7 @@
 import express from "express";
 import path from "path";
 import { rootDir } from "../app.js";
+import AuthController from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -17,9 +18,6 @@ router.get("/signup", (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/signup.html"));
 });
 
-router.get("/forgot-password", (req, res) => {
-  res.sendFile(path.join(rootDir, "views/auth/forgot-password.html"));
-});
+router.post("/signup", AuthController.signup);
 
 export default router;
-

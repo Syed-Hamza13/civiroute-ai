@@ -5,12 +5,17 @@ import { fileURLToPath } from "url";
 import cors from "cors";
 import session from "express-session";
 
+import dotenv from "dotenv"; 
+
 import authRoutes from "./routes/authRoutes.js";
 import citizenRoutes from "./routes/citizenRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import departmentRoutes from "./routes/departmentRoutes.js";
 import complaintRoutes from "./routes/complaintRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
+
+dotenv.config();
+
 
 const app = express();
 
