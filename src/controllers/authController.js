@@ -1,4 +1,3 @@
-
 import AuthService from "../services/authService.js";
 
 class AuthController {
@@ -32,6 +31,29 @@ class AuthController {
       res.send("Citizen registered successfully");
     } catch (error) {
       res.status(400).send(error.message);
+    }
+  }
+
+  static async login(req, res) {
+    try {
+      const { identifier, password, role } = req.body;
+
+      if (role !== "citizen") {
+        return res.send("Department/Admin login will be added next");
+      }
+
+      const citizen = await AuthService.loginCitizen(identifier, password);
+
+      req.session.user = {
+        id: citizen.id,
+        role: "citizen",
+        name: citizen.full_name,
+        email: citizen.email,
+      };
+
+      res.redirect("/citizen/dashboard");
+    } catch (error) {
+      res.status(401).send(error.message);
     }
   }
 }

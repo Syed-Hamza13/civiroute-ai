@@ -1,4 +1,3 @@
-
 import db from "../config/db.js";
 
 class Citizen {
@@ -40,27 +39,33 @@ class Citizen {
   }
 
   static async findByEmail(email) {
-    const [rows] = await db.execute(
-      "SELECT * FROM citizens WHERE email = ?",
-      [email]
-    );
+    const [rows] = await db.execute("SELECT * FROM citizens WHERE email = ?", [
+      email,
+    ]);
 
     return rows[0];
   }
 
   static async findByMobile(mobile) {
-    const [rows] = await db.execute(
-      "SELECT * FROM citizens WHERE mobile = ?",
-      [mobile]
-    );
+    const [rows] = await db.execute("SELECT * FROM citizens WHERE mobile = ?", [
+      mobile,
+    ]);
 
     return rows[0];
   }
 
+  static async findByIdentifier(identifier) {
+    const query = `
+    SELECT *
+    FROM citizens
+    WHERE email = ? OR mobile = ?
+    LIMIT 1
+  `;
 
-  
+    const [rows] = await db.execute(query, [identifier, identifier]);
+
+    return rows[0];
+  }
 }
-
-
 
 export default Citizen;

@@ -1,11 +1,13 @@
-
 import express from "express";
-
+import path from "path";
+import { fileURLToPath } from "url";
+import { rootDir } from "../app.js";
 const router = express.Router();
+
 
 // Dashboard
 router.get("/dashboard", (req, res) => {
-  res.render("citizen/dashboard");
+  res.sendFile(path.join(rootDir, "views/citizen/dashboard.html"));
 });
 
 // Complaint pages
