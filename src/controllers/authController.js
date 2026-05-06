@@ -38,22 +38,61 @@ class AuthController {
     try {
       const { identifier, password, role } = req.body;
 
-      if (role !== "citizen") {
-        return res.send("Department/Admin login will be added next");
+      // =========================
+      // Citizen Login
+      // =========================
+      if (role === "citizen") {
+        const citizen = await AuthService.loginCitizen(identifier, password);
+
+        req.session.user = {
+          id: citizen.id,
+          role: "citizen",
+          name: citizen.full_name,
+          email: citizen.email,
+        };
+
+        return res.redirect("/citizen/dashboard");
       }
 
-      const citizen = await AuthService.loginCitizen(identifier, password);
+      // =========================
+      // Admin Login
+      // =========================
+      if (role === "admin") {
+        const admin = await AuthService.loginAdmin(identifier, password);
 
-      req.session.user = {
-        id: citizen.id,
-        role: "citizen",
-        name: citizen.full_name,
-        email: citizen.email,
-      };
+        req.session.user = {
+          id: admin.id,
+          role: "admin",
+          name: admin.full_name,
+          email: admin.email,
+        };
 
-      res.redirect("/citizen/dashboard");
+        return res.redirect("/admin/dashboard");
+      }
+
+      // =========================
+      // Department Login
+      // =========================
+
+      if (role === "department") {
+        const department = await AuthService.loginDepartment(
+          identifier,
+          password,
+        );
+
+        req.session.user = {
+          id: department.id,
+          role: "department",
+          name: department.office_name,
+          email: department.email,
+        };
+
+        return res.redirect("/department/dashboard");
+      }
+
+      return res.status(400).send("Invalid role");
     } catch (error) {
-      res.status(401).send(error.message);
+      return res.status(401).send(error.message);
     }
   }
 }

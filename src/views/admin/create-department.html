@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Department</title>
+</head>
+<body>
+
+    <h1>Create Department Account</h1>
+
+    <form action="/admin/departments/create" method="POST">
+
+        <div>
+            <label>Department Type</label><br>
+
+            <select name="department_type_id" required>
+                <option value="">Select Department</option>
+
+                <option value="1">Water Supply</option>
+                <option value="2">Electricity</option>
+                <option value="3">Roads</option>
+                <option value="4">Sanitation</option>
+                <option value="5">Public Services</option>
+
+            </select>
+        </div>
+
+        <br>
+
+        <div>
+            <label>City</label><br>
+
+            <select name="city_id" required>
+                <option value="">Select City</option>
+
+                <option value="1">Bhopal</option>
+                <option value="2">Indore</option>
+                <option value="3">Jabalpur</option>
+
+            </select>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Office Name</label><br>
+
+            <input
+                type="text"
+                name="office_name"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Email</label><br>
+
+            <input
+                type="email"
+                name="email"
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Mobile</label><br>
+
+            <input
+                type="text"
+                name="mobile"
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Username</label><br>
+
+            <input
+                type="text"
+                name="username"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Password</label><br>
+
+            <input
+                type="password"
+                name="password"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Address</label><br>
+
+            <textarea
+                name="address"
+                rows="4"
+                cols="40"
+            ></textarea>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Pincode</label><br>
+
+            <input
+                type="text"
+                name="pincode"
+            >
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Create Department
+        </button>
+
+    </form>
+
+</body>
+</html>

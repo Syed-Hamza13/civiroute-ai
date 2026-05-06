@@ -1,11 +1,25 @@
-
 import bcrypt from "bcrypt";
 import Citizen from "../models/Citizen.js";
+import SuperAdmin from "../models/SuperAdmin.js";
+import Department from "../models/Department.js";
 
 class AuthService {
+  static async loginAdmin(identifier, password) {
+    const admin = await SuperAdmin.findByIdentifier(identifier);
 
+    if (!admin) {
+      throw new Error("Admin account not found");
+    }
 
-  
+    const isMatch = await bcrypt.compare(password, admin.password_hash);
+
+    if (!isMatch) {
+      throw new Error("Invalid password");
+    }
+
+    return admin;
+  }
+
   static async registerCitizen(data) {
     const existingEmail = await Citizen.findByEmail(data.email);
     if (existingEmail) {
@@ -27,32 +41,62 @@ class AuthService {
     return result;
   }
 
+  static async loginCitizen(identifier, password) {
+    const citizen = await Citizen.findByIdentifier(identifier);
 
+    if (!citizen) {
+      throw new Error("Citizen account not found");
+    }
 
-static async loginCitizen(identifier, password) {
-  const citizen = await Citizen.findByIdentifier(identifier);
+    if (citizen.status !== "active") {
+      throw new Error("Account is blocked");
+    }
 
-  if (!citizen) {
-    throw new Error("Citizen account not found");
+    const isMatch = await bcrypt.compare(password, citizen.password_hash);
+
+    if (!isMatch) {
+      throw new Error("Invalid password");
+    }
+
+    return citizen;
   }
 
-  if (citizen.status !== "active") {
-    throw new Error("Account is blocked");
+  static async createDepartment(data) {
+    const existingDepartment = await Department.findByIdentifier(data.username);
+
+    if (existingDepartment) {
+      throw new Error("Department username already exists");
+    }
+
+    const password_hash = await bcrypt.hash(data.password, 10);
+
+    const result = await Department.create({
+      ...data,
+      password_hash,
+    });
+
+    return result;
   }
 
-  const isMatch = await bcrypt.compare(
-    password,
-    citizen.password_hash
-  );
+  static async loginDepartment(identifier, password) {
+    const department = await Department.findByIdentifier(identifier);
 
-  if (!isMatch) {
-    throw new Error("Invalid password");
+    if (!department) {
+      throw new Error("Department account not found");
+    }
+
+    if (department.status !== "active") {
+      throw new Error("Department account inactive");
+    }
+
+    const isMatch = await bcrypt.compare(password, department.password_hash);
+
+    if (!isMatch) {
+      throw new Error("Invalid password");
+    }
+
+    return department;
   }
-
-  return citizen;
-}
-
-
 }
 
 export default AuthService;

@@ -1,11 +1,12 @@
-
 import express from "express";
+import path from "path";
+import { rootDir } from "../app.js";
 
 const router = express.Router();
 
 // Dashboard
 router.get("/dashboard", (req, res) => {
-  res.render("department/dashboard");
+  res.sendFile(path.join(rootDir, "views/department/dashboard.html"));
 });
 
 // Assigned complaints

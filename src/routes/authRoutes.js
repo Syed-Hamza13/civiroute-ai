@@ -22,7 +22,7 @@ router.get("/signup", (req, res) => {
 });
 
 // Citizen Signup
-router.post("/signup", AuthController.signup);
+router.post("/signup", AuthController.signup); 
 
 // Login (Citizen / Department / Admin)
 router.post("/login", AuthController.login);
