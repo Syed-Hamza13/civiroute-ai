@@ -3,7 +3,10 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
+
 import session from "express-session";
+import { RedisStore } from "connect-redis";
+import redisClient from "./config/redis.js";
 
 import dotenv from "dotenv"; 
 
@@ -29,13 +32,31 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.use(
   session({
+    store: new RedisStore({
+      client: redisClient
+    }),
+
+    name: "civiroute.sid",
+
     secret: process.env.SESSION_SECRET,
+
     resave: false,
     saveUninitialized: false,
+
+    rolling: true,
+
+    cookie: {
+      httpOnly: true,
+      secure: false, // true in HTTPS
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24
+    }
   })
 );
+
 
 // static
 app.use(express.static(path.join(__dirname, "../public")));

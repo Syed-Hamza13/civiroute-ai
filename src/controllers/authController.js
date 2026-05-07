@@ -38,59 +38,82 @@ class AuthController {
     try {
       const { identifier, password, role } = req.body;
 
+      let user = null;
+      let redirectUrl = "";
+
       // =========================
       // Citizen Login
       // =========================
       if (role === "citizen") {
         const citizen = await AuthService.loginCitizen(identifier, password);
 
-        req.session.user = {
+        user = {
           id: citizen.id,
           role: "citizen",
           name: citizen.full_name,
           email: citizen.email,
         };
 
-        return res.redirect("/citizen/dashboard");
+        redirectUrl = "/citizen/dashboard";
       }
 
       // =========================
       // Admin Login
       // =========================
-      if (role === "admin") {
+      else if (role === "admin") {
         const admin = await AuthService.loginAdmin(identifier, password);
 
-        req.session.user = {
+        user = {
           id: admin.id,
           role: "admin",
           name: admin.full_name,
           email: admin.email,
         };
 
-        return res.redirect("/admin/dashboard");
+        redirectUrl = "/admin/dashboard";
       }
 
       // =========================
       // Department Login
       // =========================
-
-      if (role === "department") {
+      else if (role === "department") {
         const department = await AuthService.loginDepartment(
           identifier,
           password,
         );
 
-        req.session.user = {
+        user = {
           id: department.id,
           role: "department",
           name: department.office_name,
           email: department.email,
         };
 
-        return res.redirect("/department/dashboard");
+        redirectUrl = "/department/dashboard";
+      } else {
+        return res.status(400).send("Invalid role");
       }
 
-      return res.status(400).send("Invalid role");
+      // =========================
+      // Session Rotation
+      // =========================
+      req.session.regenerate((err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send("Session creation failed");
+        }
+
+        req.session.user = user;
+
+        req.session.save((err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send("Session save failed");
+          }
+
+          return res.redirect(redirectUrl);
+        });
+      });
     } catch (error) {
       return res.status(401).send(error.message);
     }
@@ -98,3 +121,4 @@ class AuthController {
 }
 
 export default AuthController;
+ 

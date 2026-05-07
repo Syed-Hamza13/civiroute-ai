@@ -3,21 +3,22 @@ import express from "express";
 import path from "path";
 import { rootDir } from "../app.js";
 import AuthController from "../controllers/authController.js";
+import guestOnly from "../middlewares/guestMiddleware.js";
 
 const router = express.Router();
 
 // Home
-router.get("/", (req, res) => {
+router.get("/",guestOnly, (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/login.html"));
 });
 
 // Login page
-router.get("/login", (req, res) => {
+router.get("/login",guestOnly, (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/login.html"));
 });
 
 // Signup page
-router.get("/signup", (req, res) => {
+router.get("/signup",guestOnly, (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/signup.html"));
 });
 
@@ -30,8 +31,10 @@ router.post("/login", AuthController.login);
 // Logout
 router.get("/logout", (req, res) => {
   req.session.destroy(() => {
+    res.clearCookie("civiroute.sid");
     res.redirect("/login");
   });
 });
+
 
 export default router;

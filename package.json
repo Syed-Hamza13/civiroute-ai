@@ -25,6 +25,7 @@
   "homepage": "https://github.com/Syed-Hamza13/civiroute-ai#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "connect-redis": "^9.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "ejs": "^5.0.2",
@@ -32,6 +33,7 @@
     "express-session": "^1.19.0",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.1.1",
-    "mysql2": "^3.22.3"
+    "mysql2": "^3.22.3",
+    "redis": "^5.12.1"
   }
 }

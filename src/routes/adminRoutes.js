@@ -2,21 +2,26 @@ import express from "express";
 import path from "path";
 import { rootDir } from "../app.js";
 
+import {
+  requireAdmin
+} from "../middlewares/authMiddleware.js";
+
+
 import AdminController from "../controllers/adminController.js";
 
 const router = express.Router();
 
 // Dashboard
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", requireAdmin, (req, res) => {
   res.sendFile(path.join(rootDir, "views/admin/dashboard.html"));
 });
 
 // Department Management
-router.get("/departments", (req, res) => {
+router.get("/departments", requireAdmin, (req, res) => {
   res.render("admin/departments");
 });
 
-router.get("/departments/create", (req, res) => {
+router.get("/departments/create", requireAdmin, (req, res) => {
   res.sendFile(path.join(rootDir, "views/admin/create-department.html"));
 });
 

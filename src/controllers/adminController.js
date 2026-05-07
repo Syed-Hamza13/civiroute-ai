@@ -25,7 +25,7 @@ class AdminController {
         password,
         address,
         pincode,
-        created_by: req.session?.user?.id || 1,
+        created_by: req.session?.user?.id
       });
 
       res.send("Department created successfully");
