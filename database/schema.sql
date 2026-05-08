@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS citizens;
 DROP TABLE IF EXISTS cities;
 DROP TABLE IF EXISTS states;
 DROP TABLE IF EXISTS super_admins;
+DROP TABLE IF EXISTS email_verifications
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -64,6 +65,7 @@ CREATE TABLE citizens (
     pincode VARCHAR(10),
 
     is_verified BOOLEAN DEFAULT FALSE,
+    mobile_verified BOOLEAN DEFAULT FALSE;
     status ENUM('active','blocked') DEFAULT 'active',
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -298,3 +300,20 @@ CREATE TABLE notifications (
     INDEX idx_notification_user (user_type, user_id)
 );
 
+CREATE TABLE email_verifications (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    citizen_id BIGINT NOT NULL,
+
+    otp VARCHAR(10) NOT NULL,
+
+    expires_at DATETIME NOT NULL,
+
+    verified BOOLEAN DEFAULT FALSE,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (citizen_id)
+    REFERENCES citizens(id)
+    ON DELETE CASCADE
+);

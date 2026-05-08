@@ -1,4 +1,3 @@
-
 import express from "express";
 import path from "path";
 import { rootDir } from "../app.js";
@@ -8,22 +7,28 @@ import guestOnly from "../middlewares/guestMiddleware.js";
 const router = express.Router();
 
 // Home
-router.get("/",guestOnly, (req, res) => {
+router.get("/", guestOnly, (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/login.html"));
 });
 
 // Login page
-router.get("/login",guestOnly, (req, res) => {
+router.get("/login", guestOnly, (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/login.html"));
 });
 
 // Signup page
-router.get("/signup",guestOnly, (req, res) => {
+router.get("/signup", guestOnly, (req, res) => {
   res.sendFile(path.join(rootDir, "views/auth/signup.html"));
 });
 
+router.get("/verify-email", (req, res) => {
+  res.sendFile(path.join(rootDir, "views/auth/verify-email.html"));
+});
+
+router.post("/verify-email", AuthController.verifyEmail);
+
 // Citizen Signup
-router.post("/signup", AuthController.signup); 
+router.post("/signup", AuthController.signup);
 
 // Login (Citizen / Department / Admin)
 router.post("/login", AuthController.login);
@@ -35,6 +40,5 @@ router.get("/logout", (req, res) => {
     res.redirect("/login");
   });
 });
-
 
 export default router;

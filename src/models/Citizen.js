@@ -66,6 +66,17 @@ class Citizen {
 
     return rows[0];
   }
+
+  static async verifyEmail(id) {
+    await db.execute(
+      `
+    UPDATE citizens
+    SET is_verified = TRUE
+    WHERE id = ?
+    `,
+      [id],
+    );
+  }
 }
 
 export default Citizen;

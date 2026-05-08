@@ -18,7 +18,7 @@ class AuthController {
         return res.status(400).send("Passwords do not match");
       }
 
-      await AuthService.registerCitizen({
+      const result = await AuthService.registerCitizen({
         full_name,
         email,
         mobile,
@@ -28,7 +28,11 @@ class AuthController {
         password,
       });
 
-      res.send("Citizen registered successfully");
+      req.session.pendingVerification = {
+        citizenId: result.citizenId,
+      };
+
+      res.redirect("/verify-email");
     } catch (error) {
       res.status(400).send(error.message);
     }
@@ -118,7 +122,26 @@ class AuthController {
       return res.status(401).send(error.message);
     }
   }
+
+  static async verifyEmail(req, res) {
+    try {
+      const { otp } = req.body;
+
+      const pending = req.session.pendingVerification;
+
+      if (!pending) {
+        return res.status(400).send("No verification session found");
+      }
+
+      await AuthService.verifyCitizenEmail(pending.citizenId, otp);
+
+      delete req.session.pendingVerification;
+
+      res.send("Email verified successfully. You can now login.");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
 }
 
 export default AuthController;
- 

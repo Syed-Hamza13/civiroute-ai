@@ -3,6 +3,9 @@ import Citizen from "../models/Citizen.js";
 import SuperAdmin from "../models/SuperAdmin.js";
 import Department from "../models/Department.js";
 
+import transporter from "../config/mail.js";
+import EmailVerification from "../models/EmailVerification.js";
+
 class AuthService {
   static async loginAdmin(identifier, password) {
     const admin = await SuperAdmin.findByIdentifier(identifier);
@@ -22,11 +25,13 @@ class AuthService {
 
   static async registerCitizen(data) {
     const existingEmail = await Citizen.findByEmail(data.email);
+
     if (existingEmail) {
       throw new Error("Email already registered");
     }
 
     const existingMobile = await Citizen.findByMobile(data.mobile);
+
     if (existingMobile) {
       throw new Error("Mobile already registered");
     }
@@ -38,7 +43,30 @@ class AuthService {
       password_hash,
     });
 
-    return result;
+    const citizenId = result.insertId;
+
+    // generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // save OTP
+    await EmailVerification.create(citizenId, otp);
+
+    // send mail
+    await transporter.sendMail({
+      from: process.env.MAIL_USER,
+      to: data.email,
+      subject: "Email Verification OTP",
+      html: `
+      <h2>Email Verification</h2>
+      <p>Your OTP:</p>
+      <h1>${otp}</h1>
+      <p>Valid for 10 minutes.</p>
+    `,
+    });
+
+    return {
+      citizenId,
+    };
   }
 
   static async loginCitizen(identifier, password) {
@@ -46,6 +74,10 @@ class AuthService {
 
     if (!citizen) {
       throw new Error("Citizen account not found");
+    }
+
+    if (!citizen.is_verified) {
+      throw new Error("Please verify your email first");
     }
 
     if (citizen.status !== "active") {
@@ -96,6 +128,20 @@ class AuthService {
     }
 
     return department;
+  }
+
+  static async verifyCitizenEmail(citizenId, otp) {
+    const verification = await EmailVerification.verify(citizenId, otp);
+
+    if (!verification) {
+      throw new Error("Invalid or expired OTP");
+    }
+
+    await Citizen.verifyEmail(citizenId);
+
+    await EmailVerification.markVerified(verification.id);
+
+    return true;
   }
 }
 
