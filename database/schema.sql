@@ -317,3 +317,21 @@ CREATE TABLE email_verifications (
     REFERENCES citizens(id)
     ON DELETE CASCADE
 );
+
+CREATE TABLE mobile_verifications (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    citizen_id BIGINT NOT NULL,
+
+    otp VARCHAR(10) NOT NULL,
+
+    expires_at DATETIME NOT NULL,
+
+    verified BOOLEAN DEFAULT FALSE,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (citizen_id)
+    REFERENCES citizens(id)
+    ON DELETE CASCADE
+);

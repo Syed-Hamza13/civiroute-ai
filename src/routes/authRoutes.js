@@ -27,6 +27,10 @@ router.get("/verify-email", (req, res) => {
 
 router.post("/verify-email", AuthController.verifyEmail);
 
+router.post("/send-mobile-otp", AuthController.sendMobileOtp);
+
+router.post("/verify-mobile", AuthController.verifyMobile);
+
 // Citizen Signup
 router.post("/signup", AuthController.signup);
 

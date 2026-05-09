@@ -1,31 +1,201 @@
-
-```html id="m5q2wx"
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Verify Email</title>
+    <meta charset="UTF-8">
+    <title>Verification</title>
 </head>
+
 <body>
 
-    <h1>Email Verification</h1>
+    <h1>Account Verification</h1>
 
-    <form action="/verify-email" method="POST">
+    <!-- EMAIL VERIFY -->
+    <section>
+        <h2>Email Verification</h2>
 
-        <label>Enter OTP</label><br>
-        <input
-            type="text"
-            name="otp"
-            required
-        >
+        <form id="emailForm">
+            <label>Email OTP</label><br>
+
+            <input type="text" id="emailOtp" required>
+
+            <br><br>
+
+            <button type="submit">
+                Verify Email
+            </button>
+        </form>
+
+        <p id="emailStatus"></p>
+    </section>
+
+    <hr>
+
+    <!-- MOBILE VERIFY -->
+    <section id="mobileSection" style="display:none;">
+        <h2>Mobile Verification</h2>
+
+        <label>Phone Number</label><br>
+        <input type="text" id="phoneNumber" placeholder="+919876543210">
 
         <br><br>
 
-        <button type="submit">
-            Verify
+        <button id="sendOtpBtn">
+            Send OTP
         </button>
 
-    </form>
+        <br><br>
+
+        <label>Mobile OTP</label><br>
+        <input type="text" id="mobileOtp">
+
+        <br><br>
+
+        <button id="verifyMobileBtn">
+            Verify Mobile
+        </button>
+
+        <p id="mobileStatus"></p>
+
+        
+    </section>
+
+
+    <script>
+        // =====================
+        // EMAIL VERIFY
+        // =====================
+        const emailForm =
+            document.getElementById("emailForm");
+
+        emailForm.addEventListener(
+            "submit",
+            async (e) => {
+                e.preventDefault();
+
+                const otp =
+                    document.getElementById(
+                        "emailOtp"
+                    ).value;
+
+                const res =
+                    await fetch(
+                        "/verify-email",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body: JSON.stringify({
+                                otp
+                            })
+                        }
+                    );
+
+                const text =
+                    await res.text();
+
+                document.getElementById(
+                    "emailStatus"
+                ).innerText = text;
+
+                if (res.ok) {
+                    document.getElementById(
+                        "mobileSection"
+                    ).style.display = "block";
+                }
+            }
+        );
+
+
+        // =====================
+        // SEND WHATSAPP OTP
+        // =====================
+        document
+            .getElementById("sendOtpBtn")
+            .addEventListener(
+                "click",
+                async () => {
+
+                    const phone =
+                        document.getElementById(
+                            "phoneNumber"
+                        ).value;
+
+                    const res =
+                        await fetch(
+                            "/send-mobile-otp",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+                                body: JSON.stringify({
+                                    phone
+                                })
+                            }
+                        );
+
+                    const text =
+                        await res.text();
+
+                    document.getElementById(
+                        "mobileStatus"
+                    ).innerText = text;
+                }
+            );
+
+
+        // =====================
+        // VERIFY MOBILE OTP
+        // =====================
+        document
+            .getElementById(
+                "verifyMobileBtn"
+            )
+            .addEventListener(
+                "click",
+                async () => {
+
+                    const otp =
+                        document.getElementById(
+                            "mobileOtp"
+                        ).value;
+
+                    const phone =
+                        document.getElementById(
+                            "phoneNumber"
+                        ).value;
+
+                    const res =
+                        await fetch(
+                            "/verify-mobile",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+                                body: JSON.stringify({
+                                    otp,
+                                    phone
+                                })
+                            }
+                        );
+
+                    const text =
+                        await res.text();
+
+                    document.getElementById(
+                        "mobileStatus"
+                    ).innerText = text;
+                }
+            );
+    </script>
+
 
 </body>
+
 </html>
-```

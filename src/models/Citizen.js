@@ -77,6 +77,18 @@ class Citizen {
       [id],
     );
   }
+
+  static async verifyMobile(id, mobile) {
+    await db.execute(
+      `
+    UPDATE citizens
+    SET mobile = ?,
+        mobile_verified = TRUE
+    WHERE id = ?
+    `,
+      [mobile, id],
+    );
+  }
 }
 
 export default Citizen;

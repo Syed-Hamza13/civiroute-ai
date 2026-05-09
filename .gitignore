@@ -141,3 +141,8 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+civiroute-firebase-adminsdk-fbsvc-769fba5fc5.json
+
+.wwebjs_auth
+.wwebjs_cache

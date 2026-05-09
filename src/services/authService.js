@@ -6,6 +6,9 @@ import Department from "../models/Department.js";
 import transporter from "../config/mail.js";
 import EmailVerification from "../models/EmailVerification.js";
 
+import MobileVerification from "../models/MobileVerification.js";
+import { sendWhatsAppOTP } from "./whatsappService.js";
+
 class AuthService {
   static async loginAdmin(identifier, password) {
     const admin = await SuperAdmin.findByIdentifier(identifier);
@@ -140,6 +143,30 @@ class AuthService {
     await Citizen.verifyEmail(citizenId);
 
     await EmailVerification.markVerified(verification.id);
+
+    return true;
+  }
+
+  static async sendMobileOtp(citizenId, phone) {
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await MobileVerification.create(citizenId, otp);
+
+    await sendWhatsAppOTP(phone, otp);
+
+    return true;
+  }
+
+  static async verifyCitizenMobile(citizenId, phone, otp) {
+    const verification = await MobileVerification.verify(citizenId, otp);
+
+    if (!verification) {
+      throw new Error("Invalid or expired OTP");
+    }
+
+    await Citizen.verifyMobile(citizenId, phone);
+
+    await MobileVerification.markVerified(verification.id);
 
     return true;
   }

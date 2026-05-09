@@ -1,5 +1,7 @@
 import AuthService from "../services/authService.js";
 
+import Citizen from "../models/Citizen.js";
+
 class AuthController {
   static async signup(req, res) {
     try {
@@ -135,9 +137,72 @@ class AuthController {
 
       await AuthService.verifyCitizenEmail(pending.citizenId, otp);
 
-      delete req.session.pendingVerification;
+      req.session.pendingVerification.emailVerified = true;
 
       res.send("Email verified successfully. You can now login.");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
+
+  static async verifyMobile(req, res) {
+    try {
+      const { token } = req.body;
+
+      const decoded = await admin.auth().verifyIdToken(token);
+
+      const phoneNumber = decoded.phone_number;
+
+      const citizenId = req.session.pendingVerification?.citizenId;
+
+      if (!citizenId) {
+        return res.status(400).send("Session expired");
+      }
+
+      await Citizen.verifyMobile(citizenId, phoneNumber);
+
+      res.json({
+        success: true,
+        phoneNumber,
+      });
+    } catch (error) {
+      res.status(400).send("Mobile verification failed");
+    }
+  }
+
+  static async sendMobileOtp(req, res) {
+    try {
+      const { phone } = req.body;
+
+      const citizenId = req.session.pendingVerification?.citizenId;
+
+      if (!citizenId) {
+        return res.status(400).send("Session expired");
+      }
+
+      await AuthService.sendMobileOtp(citizenId, phone);
+
+      res.send("OTP sent on WhatsApp");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
+
+  static async verifyMobile(req, res) {
+    try {
+      const { otp, phone } = req.body;
+
+      const citizenId = req.session.pendingVerification?.citizenId;
+
+      if (!citizenId) {
+        return res.status(400).send("Session expired");
+      }
+
+      await AuthService.verifyCitizenMobile(citizenId, phone, otp);
+
+      delete req.session.pendingVerification;
+
+      res.send("Mobile verified successfully");
     } catch (error) {
       res.status(400).send(error.message);
     }
