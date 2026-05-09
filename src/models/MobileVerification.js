@@ -2,16 +2,12 @@
 import db from "../config/db.js";
 
 class MobileVerification {
-
-  static async create(
-    citizenId,
-    otp
-  ) {
+  static async create(phone, otp) {
     await db.execute(
       `
       INSERT INTO mobile_verifications
       (
-        citizen_id,
+        phone,
         otp,
         expires_at
       )
@@ -19,33 +15,27 @@ class MobileVerification {
       (
         ?,
         ?,
-        DATE_ADD(
-          NOW(),
-          INTERVAL 10 MINUTE
-        )
+        DATE_ADD(NOW(), INTERVAL 10 MINUTE)
       )
       `,
-      [citizenId, otp]
+      [phone, otp]
     );
   }
 
-  static async verify(
-    citizenId,
-    otp
-  ) {
+  static async verify(phone, otp) {
     const [rows] =
       await db.execute(
         `
         SELECT *
         FROM mobile_verifications
-        WHERE citizen_id = ?
+        WHERE phone = ?
         AND otp = ?
         AND verified = FALSE
         AND expires_at > NOW()
         ORDER BY id DESC
         LIMIT 1
         `,
-        [citizenId, otp]
+        [phone, otp]
       );
 
     return rows[0];
@@ -61,7 +51,6 @@ class MobileVerification {
       [id]
     );
   }
-
 }
 
 export default MobileVerification;

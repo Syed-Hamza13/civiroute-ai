@@ -20,18 +20,29 @@ class AuthController {
         return res.status(400).send("Passwords do not match");
       }
 
+      const normalizedMobile = Citizen.normalizeMobile(mobile);
+
       const result = await AuthService.registerCitizen({
         full_name,
         email,
-        mobile,
+        mobile: normalizedMobile,
         address,
         city_id,
         pincode,
         password,
       });
 
-      req.session.pendingVerification = {
-        citizenId: result.citizenId,
+      req.session.pendingSignup = {
+        full_name,
+        email,
+        mobile: normalizedMobile,
+        address,
+        city_id,
+        pincode,
+        password,
+        emailOtp: result.otp,
+        emailVerified: false,
+        mobileVerified: false,
       };
 
       res.redirect("/verify-email");
@@ -129,58 +140,33 @@ class AuthController {
     try {
       const { otp } = req.body;
 
-      const pending = req.session.pendingVerification;
+      const pending = req.session.pendingSignup;
 
       if (!pending) {
-        return res.status(400).send("No verification session found");
+        return res.status(400).send("Session expired");
       }
 
-      await AuthService.verifyCitizenEmail(pending.citizenId, otp);
+      if (pending.emailOtp !== otp) {
+        return res.status(400).send("Invalid OTP");
+      }
 
-      req.session.pendingVerification.emailVerified = true;
+      pending.emailVerified = true;
 
-      res.send("Email verified successfully. You can now login.");
+      res.send("Email verified successfully");
     } catch (error) {
       res.status(400).send(error.message);
     }
   }
 
-  static async verifyMobile(req, res) {
-    try {
-      const { token } = req.body;
-
-      const decoded = await admin.auth().verifyIdToken(token);
-
-      const phoneNumber = decoded.phone_number;
-
-      const citizenId = req.session.pendingVerification?.citizenId;
-
-      if (!citizenId) {
-        return res.status(400).send("Session expired");
-      }
-
-      await Citizen.verifyMobile(citizenId, phoneNumber);
-
-      res.json({
-        success: true,
-        phoneNumber,
-      });
-    } catch (error) {
-      res.status(400).send("Mobile verification failed");
-    }
-  }
-
   static async sendMobileOtp(req, res) {
     try {
-      const { phone } = req.body;
+      const pending = req.session.pendingSignup;
 
-      const citizenId = req.session.pendingVerification?.citizenId;
-
-      if (!citizenId) {
+      if (!pending) {
         return res.status(400).send("Session expired");
       }
 
-      await AuthService.sendMobileOtp(citizenId, phone);
+      await AuthService.sendMobileOtp(pending.mobile);
 
       res.send("OTP sent on WhatsApp");
     } catch (error) {
@@ -190,19 +176,25 @@ class AuthController {
 
   static async verifyMobile(req, res) {
     try {
-      const { otp, phone } = req.body;
+      const { otp } = req.body;
 
-      const citizenId = req.session.pendingVerification?.citizenId;
+      const pending = req.session.pendingSignup;
 
-      if (!citizenId) {
+      if (!pending) {
         return res.status(400).send("Session expired");
       }
 
-      await AuthService.verifyCitizenMobile(citizenId, phone, otp);
+      const ok = await AuthService.verifyCitizenMobile(pending.mobile, otp);
 
-      delete req.session.pendingVerification;
+      if (!ok) {
+        return res.status(400).send("Invalid OTP");
+      }
 
-      res.send("Mobile verified successfully");
+      await AuthService.createVerifiedCitizen(pending);
+
+      delete req.session.pendingSignup;
+
+      res.send("Account created successfully");
     } catch (error) {
       res.status(400).send(error.message);
     }

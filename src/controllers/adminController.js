@@ -1,7 +1,7 @@
 import AuthService from "../services/authService.js";
 
 class AdminController {
-  static async createDepartment(req, res) {
+  static async createDepartment(req, res)  {
     try {
       const {
         department_type_id,

@@ -39,37 +39,20 @@ class AuthService {
       throw new Error("Mobile already registered");
     }
 
-    const password_hash = await bcrypt.hash(data.password, 10);
-
-    const result = await Citizen.create({
-      ...data,
-      password_hash,
-    });
-
-    const citizenId = result.insertId;
-
-    // generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // save OTP
-    await EmailVerification.create(citizenId, otp);
-
-    // send mail
     await transporter.sendMail({
       from: process.env.MAIL_USER,
       to: data.email,
       subject: "Email Verification OTP",
       html: `
       <h2>Email Verification</h2>
-      <p>Your OTP:</p>
       <h1>${otp}</h1>
-      <p>Valid for 10 minutes.</p>
+      <p>Valid for 10 minutes</p>
     `,
     });
 
-    return {
-      citizenId,
-    };
+    return { otp };
   }
 
   static async loginCitizen(identifier, password) {
@@ -147,28 +130,39 @@ class AuthService {
     return true;
   }
 
-  static async sendMobileOtp(citizenId, phone) {
+  static async sendMobileOtp(phone) {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    await MobileVerification.create(citizenId, otp);
+    await MobileVerification.create(phone, otp);
 
     await sendWhatsAppOTP(phone, otp);
 
     return true;
   }
 
-  static async verifyCitizenMobile(citizenId, phone, otp) {
-    const verification = await MobileVerification.verify(citizenId, otp);
+  static async verifyCitizenMobile(phone, otp) {
+    const verification = await MobileVerification.verify(phone, otp);
 
     if (!verification) {
       throw new Error("Invalid or expired OTP");
     }
 
-    await Citizen.verifyMobile(citizenId, phone);
-
     await MobileVerification.markVerified(verification.id);
 
     return true;
+  }
+
+  static async createVerifiedCitizen(data) {
+    const password_hash = await bcrypt.hash(data.password, 10);
+
+    await Citizen.create({
+      ...data,
+      password_hash,
+      is_verified: true,
+      mobile_verified: true,
+    });
+
+    return true; 
   }
 }
 
