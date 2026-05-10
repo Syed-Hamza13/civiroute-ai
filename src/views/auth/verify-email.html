@@ -35,19 +35,9 @@
     <section id="mobileSection" style="display:none;">
         <h2>Mobile Verification</h2>
 
-        <label>Phone Number</label><br>
-
-        <input type="text" id="phoneNumber">
-
-
-
-        <br><br> 
-
-        <button type="button" id="sendOtpBtn">
-            Send OTP
-        </button>
-
-        <br><br>
+        <p>
+            OTP was sent to your mobile number. Please enter the OTP below to verify your mobile number.
+        </p>
 
         <label>Mobile OTP</label><br>
         <input type="text" id="mobileOtp">
@@ -59,8 +49,6 @@
         </button>
 
         <p id="mobileStatus"></p>
-
-
     </section>
 
 
@@ -109,6 +97,7 @@
                     document.getElementById(
                         "mobileSection"
                     ).style.display = "block";
+                    await sendMobileOtp();
                 }
             }
         );
@@ -117,40 +106,27 @@
         // =====================
         // SEND WHATSAPP OTP
         // =====================
-        document
-            .getElementById("sendOtpBtn")
-            .addEventListener(
-                "click",
-                async () => {
 
-                    const phone =
-                        document.getElementById(
-                            "phoneNumber"
-                        ).value;
-
-                    const res =
-                        await fetch(
-                            "/send-mobile-otp",
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-                                body: JSON.stringify({
-                                    phone
-                                })
-                            }
-                        );
-
-                    const text =
-                        await res.text();
-
-                    document.getElementById(
-                        "mobileStatus"
-                    ).innerText = text;
+        async function sendMobileOtp() {
+            const res = await fetch(
+                "/send-mobile-otp",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    }
                 }
             );
+
+            const text =
+                await res.text();
+
+            document.getElementById(
+                "mobileStatus"
+            ).innerText = text;
+        }
+
 
 
         // =====================
@@ -169,11 +145,6 @@
                             "mobileOtp"
                         ).value;
 
-                    const phone =
-                        document.getElementById(
-                            "phoneNumber"
-                        ).value;
-
                     const res =
                         await fetch(
                             "/verify-mobile",
@@ -184,8 +155,7 @@
                                         "application/json"
                                 },
                                 body: JSON.stringify({
-                                    otp,
-                                    phone
+                                    otp
                                 })
                             }
                         );
@@ -198,6 +168,7 @@
                     ).innerText = text;
                 }
             );
+            
     </script>
 
 

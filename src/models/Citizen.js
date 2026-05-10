@@ -4,7 +4,8 @@ class Citizen {
   static normalizeMobile(mobile) {
     let cleaned = String(mobile).replace(/\D/g, "");
 
-    if (cleaned.startsWith("91")) {
+    // country code only if 12 digits
+    if (cleaned.startsWith("91") && cleaned.length === 12) {
       cleaned = cleaned.slice(2);
     }
 
