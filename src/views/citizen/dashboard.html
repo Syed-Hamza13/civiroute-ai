@@ -11,5 +11,33 @@
 
     <a href="/logout">Logout</a>
 
+    <h1>Complaint</h1>
+    <input type="text" id="complaint" placeholder="Enter your complaint">
+    <button onclick="submitComplaint()">Submit Complaint</button>
+
 </body>
+<script>
+async function submitComplaint() {
+    const complaint = document.getElementById('complaint').value;
+    if (complaint.length === 0) {
+        alert('Please enter a complaint before submitting.');
+        return;
+    }
+    const response = await fetch('submit-complaint/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ complaint })
+        
+    })
+
+    if (response.ok) {
+        alert('Complaint submitted successfully!');
+        document.getElementById('complaint').value = '';
+    } else {
+        alert('Failed to submit complaint. Please try again.');
+    }
+}
+</script>
 </html>

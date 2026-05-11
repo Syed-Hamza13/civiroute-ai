@@ -1,8 +1,7 @@
 import AuthService from "../services/authService.js";
 
 import Citizen from "../models/Citizen.js";
-
-class AuthController {
+ class AuthController {
   static async signup(req, res) {
     try {
       const {
