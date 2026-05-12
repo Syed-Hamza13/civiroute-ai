@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Management - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                Department Management
+            </h1>
+
+            <div class="flex gap-4">
+
+                <a href="/admin/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                    Dashboard
+                </a>
+
+                <a href="/admin/departments/create"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm">
+                    + Create Department
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-7xl mx-auto px-4 py-10">
+
+        <!-- STATS -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Total Departments</p>
+                <h2 class="text-2xl font-bold">5</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Active</p>
+                <h2 class="text-2xl font-bold text-green-600">5</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">High Load</p>
+                <h2 class="text-2xl font-bold text-red-600">2</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Avg Response</p>
+                <h2 class="text-2xl font-bold text-blue-600">6.2 hrs</h2>
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="bg-white rounded-2xl shadow overflow-x-auto">
+
+            <table class="w-full text-sm text-left">
+
+                <thead class="bg-slate-50 text-slate-600">
+
+                    <tr>
+                        <th class="p-4">Department</th>
+                        <th class="p-4">City</th>
+                        <th class="p-4">Office</th>
+                        <th class="p-4">Load</th>
+                        <th class="p-4">Status</th>
+                        <th class="p-4">Complaints</th>
+                        <th class="p-4">Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <!-- ROW 1 -->
+                    <tr class="border-t">
+
+                        <td class="p-4 font-medium">Electricity</td>
+                        <td class="p-4">Bhopal</td>
+                        <td class="p-4">MP Electricity Office</td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">
+                                High
+                            </span>
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                                Active
+                            </span>
+                        </td>
+
+                        <td class="p-4 font-semibold">120</td>
+
+                        <td class="p-4 flex gap-2">
+
+                            <a href="/admin/departments/1"
+                                class="text-blue-600 hover:underline text-sm">
+                                View
+                            </a>
+
+                            <a href="/admin/departments/edit/1"
+                                class="text-yellow-600 hover:underline text-sm">
+                                Edit
+                            </a>
+
+                            <button class="text-red-600 hover:underline text-sm">
+                                Disable
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- ROW 2 -->
+                    <tr class="border-t">
+
+                        <td class="p-4 font-medium">Water Supply</td>
+                        <td class="p-4">Indore</td>
+                        <td class="p-4">Water Board Indore</td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                                Medium
+                            </span>
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                                Active
+                            </span>
+                        </td>
+
+                        <td class="p-4 font-semibold">80</td>
+
+                        <td class="p-4 flex gap-2">
+
+                            <a href="#" class="text-blue-600 hover:underline text-sm">View</a>
+                            <a href="#" class="text-yellow-600 hover:underline text-sm">Edit</a>
+                            <button class="text-red-600 hover:underline text-sm">Disable</button>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- ROW 3 -->
+                    <tr class="border-t">
+
+                        <td class="p-4 font-medium">Sanitation</td>
+                        <td class="p-4">Jabalpur</td>
+                        <td class="p-4">Clean City Office</td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                                Low
+                            </span>
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                                Active
+                            </span>
+                        </td>
+
+                        <td class="p-4 font-semibold">40</td>
+
+                        <td class="p-4 flex gap-2">
+
+                            <a href="#" class="text-blue-600 hover:underline text-sm">View</a>
+                            <a href="#" class="text-yellow-600 hover:underline text-sm">Edit</a>
+                            <button class="text-red-600 hover:underline text-sm">Disable</button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -3,67 +3,223 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verification - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center px-4 py-10">
 
-    <h1>Account Verification</h1>
+    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 
-    <!-- EMAIL VERIFY -->
-    <section>
-        <h2>Email Verification</h2>
+        <!-- LEFT SIDE -->
 
-        <form id="emailForm">
-            <label>Email OTP</label><br>
+        <div class="bg-gradient-to-br from-blue-700 to-cyan-500 text-white p-10 lg:p-14 flex flex-col justify-between">
 
-            <input type="text" id="emailOtp" required>
+            <div>
 
-            <br><br>
+                <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-2xl font-bold mb-6">
+                    AI
+                </div>
 
-            <button type="submit">
-                Verify Email
-            </button>
-        </form>
+                <h1 class="text-4xl font-bold leading-tight">
+                    Secure Account <br>
+                    Verification
+                </h1>
 
-        <p id="emailStatus"></p>
-    </section>
+                <p class="mt-6 text-blue-100 text-lg leading-relaxed">
+                    Verify your email and mobile number to securely access the
+                    CiviRoute AI grievance management platform.
+                </p>
 
-    <hr>
+            </div>
 
-    <!-- MOBILE VERIFY -->
-    <section id="mobileSection" style="display:none;">
-        <h2>Mobile Verification</h2>
+            <div class="space-y-5 mt-10">
 
-        <p>
-            OTP was sent to your mobile number. Please enter the OTP below to verify your mobile number.
-        </p>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        ✓
+                    </div>
 
-        <label>Mobile OTP</label><br>
-        <input type="text" id="mobileOtp">
+                    <div>
+                        <h3 class="font-semibold text-lg">
+                            Secure Verification
+                        </h3>
 
-        <br><br>
+                        <p class="text-blue-100 text-sm">
+                            Multi-step OTP verification for citizen security.
+                        </p>
+                    </div>
+                </div>
 
-        <button type="button" id="verifyMobileBtn">
-            Verify Mobile
-        </button>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        ✓
+                    </div>
 
-        <p id="mobileStatus"></p>
-    </section>
+                    <div>
+                        <h3 class="font-semibold text-lg">
+                            AI Powered Governance
+                        </h3>
+
+                        <p class="text-blue-100 text-sm">
+                            Faster and smarter grievance handling system.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="p-8 lg:p-12">
+
+            <div class="mb-8">
+
+                <h2 class="text-3xl font-bold text-slate-800">
+                    Account Verification
+                </h2>
+
+                <p class="text-slate-500 mt-2">
+                    Complete the verification process to activate your account.
+                </p>
+
+            </div>
+
+            <!-- EMAIL VERIFY -->
+
+            <section class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+
+                <div class="flex items-center gap-3 mb-5">
+
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl">
+                        ✉
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-800">
+                            Email Verification
+                        </h2>
+
+                        <p class="text-sm text-slate-500">
+                            Enter the OTP sent to your email address.
+                        </p>
+                    </div>
+
+                </div>
+
+                <form id="emailForm" class="space-y-5">
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">
+                            Email OTP
+                        </label>
+
+                        <input
+                            type="text"
+                            id="emailOtp"
+                            placeholder="Enter email OTP"
+                            required
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+                        >
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-blue-200"
+                    >
+                        Verify Email
+                    </button>
+
+                </form>
+
+                <p
+                    id="emailStatus"
+                    class="mt-4 text-sm font-medium text-slate-600"
+                ></p>
+
+            </section>
+
+            <!-- MOBILE VERIFY -->
+
+            <section
+                id="mobileSection"
+                style="display:none;"
+                class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-6"
+            >
+
+                <div class="flex items-center gap-3 mb-5">
+
+                    <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center text-xl">
+                        📱
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-800">
+                            Mobile Verification
+                        </h2>
+
+                        <p class="text-sm text-slate-500">
+                            OTP was sent to your registered mobile number.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                        Mobile OTP
+                    </label>
+
+                    <input
+                        type="text"
+                        id="mobileOtp"
+                        placeholder="Enter mobile OTP"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:border-cyan-500 transition"
+                    >
+
+                </div>
+
+                <button
+                    type="button"
+                    id="verifyMobileBtn"
+                    class="w-full mt-5 bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-200"
+                >
+                    Verify Mobile
+                </button>
+
+                <p
+                    id="mobileStatus"
+                    class="mt-4 text-sm font-medium text-slate-600"
+                ></p>
+
+            </section>
+
+        </div>
+
+    </div>
 
 
 
 
     <script>
+
         // =====================
         // EMAIL VERIFY
         // =====================
+
         const emailForm =
             document.getElementById("emailForm");
 
         emailForm.addEventListener(
             "submit",
             async (e) => {
+
                 e.preventDefault();
 
                 const otp =
@@ -76,10 +232,12 @@
                         "/verify-email",
                         {
                             method: "POST",
+
                             headers: {
                                 "Content-Type":
                                     "application/json"
                             },
+
                             body: JSON.stringify({
                                 otp
                             })
@@ -94,30 +252,36 @@
                 ).innerText = text;
 
                 if (res.ok) {
+
                     document.getElementById(
                         "mobileSection"
                     ).style.display = "block";
+
                     await sendMobileOtp();
                 }
             }
         );
 
 
+
         // =====================
-        // SEND WHATSAPP OTP
+        // SEND MOBILE OTP
         // =====================
 
         async function sendMobileOtp() {
-            const res = await fetch(
-                "/send-mobile-otp",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
+
+            const res =
+                await fetch(
+                    "/send-mobile-otp",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        }
                     }
-                }
-            );
+                );
 
             const text =
                 await res.text();
@@ -132,6 +296,7 @@
         // =====================
         // VERIFY MOBILE OTP
         // =====================
+
         document
             .getElementById(
                 "verifyMobileBtn"
@@ -150,10 +315,12 @@
                             "/verify-mobile",
                             {
                                 method: "POST",
+
                                 headers: {
                                     "Content-Type":
                                         "application/json"
                                 },
+
                                 body: JSON.stringify({
                                     otp
                                 })
@@ -168,9 +335,8 @@
                     ).innerText = text;
                 }
             );
-            
-    </script>
 
+    </script>
 
 </body>
 

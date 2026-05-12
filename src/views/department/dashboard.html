@@ -1,17 +1,211 @@
-```html id="f6z3nw"
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Department Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Dashboard - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-    <h1>Department Dashboard</h1>
+<body class="bg-slate-100 min-h-screen">
 
-    <p>Department login successful.</p>
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
 
-    <a href="/logout">Logout</a>
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                Department Panel
+            </h1>
+
+            <div class="flex gap-4">
+
+                <a href="/department/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                    Dashboard
+                </a>
+
+                <a href="/logout" class="text-sm text-red-600 hover:text-red-700 font-medium">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <!-- STATS -->
+        <div class="space-y-4">
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Total Assigned</p>
+                <h2 class="text-2xl font-bold text-slate-800">24</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Pending</p>
+                <h2 class="text-2xl font-bold text-yellow-600">10</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Resolved</p>
+                <h2 class="text-2xl font-bold text-green-600">12</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Escalated</p>
+                <h2 class="text-2xl font-bold text-red-600">2</h2>
+            </div>
+
+        </div>
+
+        <!-- COMPLAINT LIST -->
+        <div class="lg:col-span-3 space-y-4">
+
+            <!-- HEADER -->
+            <div class="bg-white rounded-2xl shadow p-5 flex flex-col md:flex-row justify-between gap-4">
+
+                <h2 class="text-xl font-bold text-slate-800">
+                    Assigned Complaints
+                </h2>
+
+                <input
+                    type="text"
+                    placeholder="Search complaints..."
+                    class="px-4 py-2 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
+                >
+
+            </div>
+
+            <!-- CARD 1 -->
+            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-red-500">
+
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-800">
+                            Street light not working in MP Nagar
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            ID: CR-10291 • Assigned: Electricity Dept
+                        </p>
+
+                    </div>
+
+                    <div class="flex gap-2">
+
+                        <span class="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-full">
+                            High Priority
+                        </span>
+
+                        <span class="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
+                            Electricity
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- AI INSIGHT -->
+                <div class="mt-4 bg-slate-50 p-4 rounded-xl text-sm">
+
+                    <p class="text-slate-600">
+                        <span class="font-semibold">AI Insight:</span>
+                        Likely transformer failure in locality.
+                    </p>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="mt-4 flex flex-col md:flex-row gap-3">
+
+                    <select class="px-4 py-2 border rounded-xl">
+                        <option>Mark Status</option>
+                        <option>In Progress</option>
+                        <option>Resolved</option>
+                        <option>Escalated</option>
+                    </select>
+
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl">
+                        Update
+                    </button>
+
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl">
+                        Mark Resolved
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-yellow-500">
+
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-800">
+                            Water leakage in pipeline
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            ID: CR-10188 • Assigned: Water Dept
+                        </p>
+
+                    </div>
+
+                    <div class="flex gap-2">
+
+                        <span class="px-3 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                            Medium Priority
+                        </span>
+
+                        <span class="px-3 py-1 text-xs bg-cyan-100 text-cyan-700 rounded-full">
+                            Water Supply
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-4 bg-slate-50 p-4 rounded-xl text-sm">
+
+                    <p class="text-slate-600">
+                        <span class="font-semibold">AI Insight:</span>
+                        Possible underground pipe damage detected.
+                    </p>
+
+                </div>
+
+                <div class="mt-4 flex gap-3">
+
+                    <select class="px-4 py-2 border rounded-xl">
+                        <option>Mark Status</option>
+                        <option>In Progress</option>
+                        <option>Resolved</option>
+                        <option>Escalated</option>
+                    </select>
+
+                    <button class="bg-blue-600 text-white px-5 py-2 rounded-xl">
+                        Update
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
-```

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Details</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-blue-600">
+            CivicRoute AI
+        </h1>
+
+        <a href="/dashboard" class="text-sm font-medium text-gray-700 hover:text-blue-600 transition">
+            Back to Dashboard
+        </a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
+
+        <!-- Top Card -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">
+                        Complaint Details
+                    </h2>
+
+                    <p class="text-gray-500 mt-2">
+                        Complaint ID: #CMP10245
+                    </p>
+                </div>
+
+                <span class="bg-yellow-100 text-yellow-700 px-5 py-2 rounded-full text-sm font-semibold w-fit">
+                    Pending
+                </span>
+
+            </div>
+
+            <!-- Complaint Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 mb-2">
+                        Complaint Title
+                    </h3>
+
+                    <p class="text-lg font-medium text-gray-800">
+                        Garbage Not Collected
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 mb-2">
+                        Department
+                    </h3>
+
+                    <p class="text-lg font-medium text-gray-800">
+                        Sanitation Department
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 mb-2">
+                        Submitted On
+                    </h3>
+
+                    <p class="text-lg font-medium text-gray-800">
+                        12 May 2026
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 mb-2">
+                        Location
+                    </h3>
+
+                    <p class="text-lg font-medium text-gray-800">
+                        MP Nagar Zone 2, Bhopal
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Description -->
+            <div class="mt-10">
+
+                <h3 class="text-sm font-semibold text-gray-500 mb-3">
+                    Complaint Description
+                </h3>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5">
+                    <p class="text-gray-700 leading-7">
+                        Garbage has not been collected in our area for the last 5 days. 
+                        The situation is causing a bad smell and hygiene issues near the residential area.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Uploaded Image -->
+            <div class="mt-10">
+
+                <h3 class="text-sm font-semibold text-gray-500 mb-3">
+                    Uploaded Evidence
+                </h3>
+
+                <img 
+                    src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a"
+                    alt="Complaint Evidence"
+                    class="w-full md:w-[500px] rounded-2xl shadow-md object-cover"
+                >
+
+            </div>
+
+            <!-- Status Timeline -->
+            <div class="mt-12">
+
+                <h3 class="text-xl font-bold text-gray-800 mb-6">
+                    Complaint Timeline
+                </h3>
+
+                <div class="space-y-5 border-l-4 border-blue-500 pl-6">
+
+                    <div>
+                        <p class="font-semibold text-gray-800">
+                            Complaint Submitted
+                        </p>
+
+                        <p class="text-sm text-gray-500">
+                            12 May 2026 - 10:30 AM
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-gray-800">
+                            Assigned to Department
+                        </p>
+
+                        <p class="text-sm text-gray-500">
+                            12 May 2026 - 11:10 AM
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-yellow-600">
+                            Waiting for Action
+                        </p>
+
+                        <p class="text-sm text-gray-500">
+                            Current Status
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 mt-12">
+
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition">
+                    Track Live Status
+                </button>
+
+                <button class="bg-red-100 hover:bg-red-200 text-red-600 px-6 py-3 rounded-xl font-semibold transition">
+                    Withdraw Complaint
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

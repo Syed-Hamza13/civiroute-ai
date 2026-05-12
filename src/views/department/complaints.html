@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Complaints - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                All Complaints
+            </h1>
+
+            <div class="flex gap-4">
+
+                <a href="/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                    Dashboard
+                </a>
+
+                <a href="/logout" class="text-sm text-red-600 hover:text-red-700 font-medium">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-7xl mx-auto px-4 py-10">
+
+        <!-- HEADER -->
+        <div class="mb-6">
+
+            <h2 class="text-2xl font-bold text-slate-800">
+                Complaint Management System
+            </h2>
+
+            <p class="text-slate-500 mt-1">
+                Monitor, filter, and manage all citizen complaints with AI classification.
+            </p>
+
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="bg-white rounded-2xl shadow p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <input
+                type="text"
+                placeholder="Search complaint..."
+                class="px-4 py-2 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
+            >
+
+            <select class="px-4 py-2 border rounded-xl">
+                <option>All Departments</option>
+                <option>Electricity</option>
+                <option>Water</option>
+                <option>Roads</option>
+                <option>Sanitation</option>
+            </select>
+
+            <select class="px-4 py-2 border rounded-xl">
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Resolved</option>
+                <option>Escalated</option>
+            </select>
+
+            <select class="px-4 py-2 border rounded-xl">
+                <option>Priority</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+            </select>
+
+        </div>
+
+        <!-- STATS -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Total</p>
+                <h2 class="text-2xl font-bold">120</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Pending</p>
+                <h2 class="text-2xl font-bold text-yellow-600">45</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">In Progress</p>
+                <h2 class="text-2xl font-bold text-blue-600">50</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Resolved</p>
+                <h2 class="text-2xl font-bold text-green-600">25</h2>
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="bg-white rounded-2xl shadow mt-6 overflow-x-auto">
+
+            <table class="w-full text-sm text-left">
+
+                <thead class="bg-slate-50 text-slate-600">
+
+                    <tr>
+                        <th class="p-4">ID</th>
+                        <th class="p-4">Complaint</th>
+                        <th class="p-4">Department</th>
+                        <th class="p-4">Priority</th>
+                        <th class="p-4">Status</th>
+                        <th class="p-4">AI Score</th>
+                        <th class="p-4">Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <!-- ROW 1 -->
+                    <tr class="border-t">
+
+                        <td class="p-4">CR-10291</td>
+
+                        <td class="p-4 font-medium">
+                            Street light not working
+                        </td>
+
+                        <td class="p-4 text-blue-600">
+                            Electricity
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">
+                                High
+                            </span>
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                                Pending
+                            </span>
+                        </td>
+
+                        <td class="p-4 font-semibold text-green-600">
+                            94%
+                        </td>
+
+                        <td class="p-4">
+                            <a href="/complaint/10291" class="text-blue-600 hover:underline">
+                                View
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    <!-- ROW 2 -->
+                    <tr class="border-t">
+
+                        <td class="p-4">CR-10188</td>
+
+                        <td class="p-4 font-medium">
+                            Water leakage issue
+                        </td>
+
+                        <td class="p-4 text-cyan-600">
+                            Water
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
+                                Medium
+                            </span>
+                        </td>
+
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
+                                In Progress
+                            </span>
+                        </td>
+
+                        <td class="p-4 font-semibold text-green-600">
+                            89%
+                        </td>
+
+                        <td class="p-4">
+                            <a href="/complaint/10188" class="text-blue-600 hover:underline">
+                                View
+                            </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
