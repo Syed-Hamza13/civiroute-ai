@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import { rootDir } from "../app.js";
 import { requireCitizen } from "../middlewares/authMiddleware.js";
-import { submitComplaint } from "../controllers/citizenController.js";
+import { myComplaints, submitComplaint } from "../controllers/citizenController.js";
 
 const router = express.Router();
 
@@ -14,9 +14,7 @@ router.get("/dashboard",requireCitizen, (req, res) => {
 // Complaint pages
 router.post("/submit-complaint", submitComplaint)
 
-router.get("/my-complaints", (req, res) => {
-  res.render("citizen/my-complaints");
-});
+router.get("/my-complaints", myComplaints)
 
 router.get("/profile", (req, res) => {
   res.render("citizen/profile");
