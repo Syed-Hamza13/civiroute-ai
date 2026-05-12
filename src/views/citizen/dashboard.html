@@ -8,12 +8,14 @@
 
     <h1>Citizen Dashboard</h1>
     <p>Login successful.</p>
-
+ 
     <a href="/logout">Logout</a>
 
     <h1>Complaint</h1>
     <input type="text" id="complaint" placeholder="Enter your complaint">
     <button onclick="submitComplaint()">Submit Complaint</button>
+
+    <ul id="listComplaints"></ul>
 
 </body>
 <script>
@@ -39,5 +41,55 @@ async function submitComplaint() {
         alert('Failed to submit complaint. Please try again.');
     }
 }
+</script>
+
+<script>
+
+async function submitComplaint() {
+
+    const complaint = document.getElementById('complaint').value;
+
+    if (complaint.length === 0) {
+        alert('Please enter a complaint before submitting.');
+        return;
+    }
+
+    const response = await fetch('submit-complaint/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ complaint })
+    });
+
+    if (response.ok) {
+
+        alert('Complaint submitted successfully!');
+
+        document.getElementById('complaint').value = '';
+
+        await fetchComplaints();
+    }
+}
+
+async function fetchComplaints() {
+
+    const response = await fetch('my-complaints/');
+
+    const data = await response.json();
+
+    console.log(data);
+
+    const complaints = data.complaints;
+
+    const complaintsList = complaints
+        .map(c => `<li>${c.complaint} - Status: Pending</li>`)
+        .join('');
+
+    document.getElementById('listComplaints').innerHTML = complaintsList;
+}
+
+fetchComplaints();
+
 </script>
 </html>
