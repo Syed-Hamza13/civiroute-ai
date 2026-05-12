@@ -1,7 +1,7 @@
 import AuthService from "../services/authService.js";
 
 import Citizen from "../models/Citizen.js";
- class AuthController {
+class AuthController {
   static async signup(req, res) {
     try {
       const {
@@ -193,7 +193,11 @@ import Citizen from "../models/Citizen.js";
 
       delete req.session.pendingSignup;
 
-      res.send("Account created successfully");
+      return res.json({
+        success: true,
+        message: "Account created successfully",
+        redirect: "/login",
+      });
     } catch (error) {
       res.status(400).send(error.message);
     }

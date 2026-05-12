@@ -96,7 +96,8 @@
 
                 <div class="flex items-center gap-3 mb-5">
 
-                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl">
                         ✉
                     </div>
 
@@ -119,42 +120,30 @@
                             Email OTP
                         </label>
 
-                        <input
-                            type="text"
-                            id="emailOtp"
-                            placeholder="Enter email OTP"
-                            required
-                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
-                        >
+                        <input type="text" id="emailOtp" placeholder="Enter email OTP" required
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition">
                     </div>
 
-                    <button
-                        type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-blue-200"
-                    >
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-blue-200">
                         Verify Email
                     </button>
 
                 </form>
 
-                <p
-                    id="emailStatus"
-                    class="mt-4 text-sm font-medium text-slate-600"
-                ></p>
+                <p id="emailStatus" class="mt-4 text-sm font-medium text-slate-600"></p>
 
             </section>
 
             <!-- MOBILE VERIFY -->
 
-            <section
-                id="mobileSection"
-                style="display:none;"
-                class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-6"
-            >
+            <section id="mobileSection" style="display:none;"
+                class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-6">
 
                 <div class="flex items-center gap-3 mb-5">
 
-                    <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center text-xl">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center text-xl">
                         📱
                     </div>
 
@@ -176,27 +165,17 @@
                         Mobile OTP
                     </label>
 
-                    <input
-                        type="text"
-                        id="mobileOtp"
-                        placeholder="Enter mobile OTP"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:border-cyan-500 transition"
-                    >
+                    <input type="text" id="mobileOtp" placeholder="Enter mobile OTP"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:border-cyan-500 transition">
 
                 </div>
 
-                <button
-                    type="button"
-                    id="verifyMobileBtn"
-                    class="w-full mt-5 bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-200"
-                >
+                <button type="button" id="verifyMobileBtn"
+                    class="w-full mt-5 bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-xl font-semibold transition shadow-lg shadow-cyan-200">
                     Verify Mobile
                 </button>
 
-                <p
-                    id="mobileStatus"
-                    class="mt-4 text-sm font-medium text-slate-600"
-                ></p>
+                <p id="mobileStatus" class="mt-4 text-sm font-medium text-slate-600"></p>
 
             </section>
 
@@ -327,12 +306,18 @@
                             }
                         );
 
-                    const text =
-                        await res.text();
+                    const data = await res.json();
 
                     document.getElementById(
                         "mobileStatus"
-                    ).innerText = text;
+                    ).innerText = data.message;
+                    if (data.success) {
+
+                        alert(data.message);
+
+                        window.location.href =
+                            data.redirect;
+                    }
                 }
             );
 
