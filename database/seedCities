@@ -1,0 +1,167 @@
+import db from "../src/config/db.js";
+
+const cities = [
+  // Madhya Pradesh (ID: 1)
+  { state_id: 1, name: "Bhopal" },
+  { state_id: 1, name: "Indore" },
+  { state_id: 1, name: "Jabalpur" },
+  { state_id: 1, name: "Gwalior" },
+  { state_id: 1, name: "Ujjain" },
+  { state_id: 1, name: "Sagar" },
+  { state_id: 1, name: "Ratlam" },
+  { state_id: 1, name: "Satna" },
+
+  // Andhra Pradesh (ID: 2)
+  { state_id: 2, name: "Visakhapatnam" },
+  { state_id: 2, name: "Vijayawada" },
+  { state_id: 2, name: "Guntur" },
+  { state_id: 2, name: "Nellore" },
+  { state_id: 2, name: "Tirupati" },
+
+  // Assam (ID: 4)
+  { state_id: 4, name: "Guwahati" },
+  { state_id: 4, name: "Silchar" },
+  { state_id: 4, name: "Dibrugarh" },
+  { state_id: 4, name: "Jorhat" },
+
+  // Bihar (ID: 5)
+  { state_id: 5, name: "Patna" },
+  { state_id: 5, name: "Gaya" },
+  { state_id: 5, name: "Bhagalpur" },
+  { state_id: 5, name: "Muzaffarpur" },
+  { state_id: 5, name: "Darbhanga" },
+
+  // Chhattisgarh (ID: 6)
+  { state_id: 6, name: "Raipur" },
+  { state_id: 6, name: "Bhilai" },
+  { state_id: 6, name: "Bilaspur" },
+  { state_id: 6, name: "Korba" },
+
+  // Goa (ID: 7)
+  { state_id: 7, name: "Panaji" },
+  { state_id: 7, name: "Margao" },
+  { state_id: 7, name: "Vasco da Gama" },
+
+  // Gujarat (ID: 8)
+  { state_id: 8, name: "Ahmedabad" },
+  { state_id: 8, name: "Surat" },
+  { state_id: 8, name: "Vadodara" },
+  { state_id: 8, name: "Rajkot" },
+  { state_id: 8, name: "Bhavnagar" },
+  { state_id: 8, name: "Jamnagar" },
+
+  // Haryana (ID: 9)
+  { state_id: 9, name: "Gurugram" },
+  { state_id: 9, name: "Faridabad" },
+  { state_id: 9, name: "Panipat" },
+  { state_id: 9, name: "Ambala" },
+
+  // Himachal Pradesh (ID: 10)
+  { state_id: 10, name: "Shimla" },
+  { state_id: 10, name: "Manali" },
+  { state_id: 10, name: "Dharamshala" },
+
+  // Jharkhand (ID: 11)
+  { state_id: 11, name: "Ranchi" },
+  { state_id: 11, name: "Jamshedpur" },
+  { state_id: 11, name: "Dhanbad" },
+  { state_id: 11, name: "Bokaro" },
+
+  // Karnataka (ID: 12)
+  { state_id: 12, name: "Bengaluru" },
+  { state_id: 12, name: "Mysuru" },
+  { state_id: 12, name: "Hubballi" },
+  { state_id: 12, name: "Mangaluru" },
+  { state_id: 12, name: "Belagavi" },
+
+  // Kerala (ID: 13)
+  { state_id: 13, name: "Thiruvananthapuram" },
+  { state_id: 13, name: "Kochi" },
+  { state_id: 13, name: "Kozhikode" },
+  { state_id: 13, name: "Thrissur" },
+
+  // Maharashtra (ID: 15)
+  { state_id: 15, name: "Mumbai" },
+  { state_id: 15, name: "Pune" },
+  { state_id: 15, name: "Nagpur" },
+  { state_id: 15, name: "Nashik" },
+  { state_id: 15, name: "Thane" },
+  { state_id: 15, name: "Solapur" },
+  { state_id: 15, name: "Amravati" },
+
+  // Odisha (ID: 20)
+  { state_id: 20, name: "Bhubaneswar" },
+  { state_id: 20, name: "Cuttack" },
+  { state_id: 20, name: "Rourkela" },
+
+  // Punjab (ID: 21)
+  { state_id: 21, name: "Ludhiana" },
+  { state_id: 21, name: "Amritsar" },
+  { state_id: 21, name: "Jalandhar" },
+  { state_id: 21, name: "Patiala" },
+
+  // Rajasthan (ID: 22)
+  { state_id: 22, name: "Jaipur" },
+  { state_id: 22, name: "Jodhpur" },
+  { state_id: 22, name: "Udaipur" },
+  { state_id: 22, name: "Kota" },
+  { state_id: 22, name: "Ajmer" },
+  { state_id: 22, name: "Bikaner" },
+
+  // Tamil Nadu (ID: 24)
+  { state_id: 24, name: "Chennai" },
+  { state_id: 24, name: "Coimbatore" },
+  { state_id: 24, name: "Madurai" },
+  { state_id: 24, name: "Salem" },
+  { state_id: 24, name: "Tiruchirappalli" },
+
+  // Telangana (ID: 25)
+  { state_id: 25, name: "Hyderabad" },
+  { state_id: 25, name: "Warangal" },
+  { state_id: 25, name: "Nizamabad" },
+  { state_id: 25, name: "Khammam" },
+
+  // Delhi (ID: 30)
+  { state_id: 30, name: "New Delhi" },
+  { state_id: 30, name: "North Delhi" },
+  { state_id: 30, name: "South Delhi" },
+  { state_id: 30, name: "West Delhi" }
+];
+
+async function seedCities() {
+
+  try {
+
+    for (const city of cities) {
+
+      await db.execute(
+        `
+        INSERT INTO cities (
+          state_id,
+          name
+        )
+        VALUES (?, ?)
+        `,
+        [
+          city.state_id,
+          city.name
+        ]
+      );
+
+    }
+
+    console.log("✅ Cities seeded");
+
+    process.exit();
+
+  } catch (error) {
+
+    console.error(error);
+
+    process.exit(1);
+
+  }
+
+}
+
+seedCities();

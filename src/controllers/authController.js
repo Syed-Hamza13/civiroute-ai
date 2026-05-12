@@ -197,7 +197,7 @@ class AuthController {
         success: true,
         message: "Account created successfully",
         redirect: "/login",
-      });
+      }); 
     } catch (error) {
       res.status(400).send(error.message);
     }

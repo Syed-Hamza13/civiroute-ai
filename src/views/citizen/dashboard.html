@@ -10,177 +10,252 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-    <h1>Citizen Dashboard</h1>
-    <p>Login successful.</p>
- 
-    <a href="/logout">Logout</a>
+<body class="bg-slate-100 min-h-screen">
 
-        <div class="space-y-6">
+    <!-- HEADER -->
 
-            <!-- STATUS CARD -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
 
-            <div class="bg-white rounded-2xl shadow p-6">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-                <h3 class="font-semibold text-slate-800 mb-4">
-                    Quick Status
-                </h3>
+            <div>
+                <h1 class="text-2xl font-bold text-slate-800">
+                    Citizen Dashboard
+                </h1>
 
-                <div class="space-y-3 text-sm">
+                <p class="text-slate-500 text-sm">
+                    Welcome to CiviRoute AI
+                </p>
+            </div>
 
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Total Complaints</span>
-                        <span class="font-semibold">0</span>
-                    </div>
+            <a
+                href="/logout"
+                class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition"
+            >
+                Logout
+            </a>
 
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Pending</span>
-                        <span class="font-semibold text-yellow-600">0</span>
-                    </div>
+        </div>
 
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Resolved</span>
-                        <span class="font-semibold text-green-600">0</span>
-                    </div>
+    </header>
+
+    <!-- MAIN -->
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- LEFT SIDE -->
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <!-- COMPLAINT BOX -->
+
+                <div class="bg-white rounded-2xl shadow p-6">
+
+                    <h2 class="text-xl font-semibold text-slate-800 mb-4">
+                        Submit Complaint
+                    </h2>
+
+                    <textarea
+                        id="complaint"
+                        rows="6"
+                        placeholder="Describe your complaint here..."
+                        class="w-full border border-slate-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 resize-none"
+                    ></textarea>
+
+                    <button
+                        onclick="submitComplaint()"
+                        class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition"
+                    >
+                        Submit Complaint
+                    </button>
+
+                </div>
+
+                <!-- COMPLAINT LIST -->
+
+                <div class="bg-white rounded-2xl shadow p-6">
+
+                    <h2 class="text-xl font-semibold text-slate-800 mb-4">
+                        My Complaints
+                    </h2>
+
+                    <ul
+                        id="listComplaints"
+                        class="space-y-3 text-slate-700"
+                    ></ul>
 
                 </div>
 
             </div>
 
-            <!-- AI INFO CARD -->
+            <!-- RIGHT SIDE -->
 
-            <div class="bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl shadow p-6">
+            <div class="space-y-6">
 
-                <h3 class="font-semibold text-lg">
-                    AI Processing Engine
-                </h3>
+                <!-- STATUS CARD -->
 
-                <p class="text-blue-100 text-sm mt-2">
-                    Your complaint will be automatically:
-                </p>
+                <div class="bg-white rounded-2xl shadow p-6">
 
-                <ul class="mt-4 space-y-2 text-sm text-blue-100">
+                    <h3 class="font-semibold text-slate-800 mb-4">
+                        Quick Status
+                    </h3>
 
-                    <li>• Classified by category</li>
-                    <li>• Sentiment analyzed</li>
-                    <li>• Priority assigned</li>
-                    <li>• Routed to department</li>
+                    <div class="space-y-3 text-sm">
 
-                </ul>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">
+                                Total Complaints
+                            </span>
+
+                            <span class="font-semibold">
+                                0
+                            </span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">
+                                Pending
+                            </span>
+
+                            <span class="font-semibold text-yellow-600">
+                                0
+                            </span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">
+                                Resolved
+                            </span>
+
+                            <span class="font-semibold text-green-600">
+                                0
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- AI CARD -->
+
+                <div class="bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl shadow p-6">
+
+                    <h3 class="font-semibold text-lg">
+                        AI Processing Engine
+                    </h3>
+
+                    <p class="text-blue-100 text-sm mt-2">
+                        Your complaint will be automatically:
+                    </p>
+
+                    <ul class="mt-4 space-y-2 text-sm text-blue-100">
+
+                        <li>• Classified by category</li>
+                        <li>• Sentiment analyzed</li>
+                        <li>• Priority assigned</li>
+                        <li>• Routed to department</li>
+
+                    </ul>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    </main>
 
     <script>
 
         async function submitComplaint() {
 
             const complaint =
-                document.getElementById('complaint').value;
+                document.getElementById(
+                    'complaint'
+                ).value;
 
             if (complaint.length === 0) {
-                alert('Please enter a complaint before submitting.');
+
+                alert(
+                    'Please enter a complaint before submitting.'
+                );
+
                 return;
             }
 
             const response =
-                await fetch('submit-complaint/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ complaint })
-                });
+                await fetch(
+                    'submit-complaint/',
+                    {
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json'
+                        },
+
+                        body: JSON.stringify({
+                            complaint
+                        })
+                    }
+                );
 
             if (response.ok) {
-                alert('Complaint submitted successfully!');
-                document.getElementById('complaint').value = '';
+
+                alert(
+                    'Complaint submitted successfully!'
+                );
+
+                document.getElementById(
+                    'complaint'
+                ).value = '';
+
+                await fetchComplaints();
+
             } else {
-                alert('Failed to submit complaint. Please try again.');
+
+                alert(
+                    'Failed to submit complaint.'
+                );
             }
         }
 
-    </script>
+        async function fetchComplaints() {
 
-    <ul id="listComplaints"></ul>
+            const response =
+                await fetch(
+                    'my-complaints/'
+                );
+
+            const data =
+                await response.json();
+
+            const complaints =
+                data.complaints || [];
+
+            const complaintsList =
+                complaints
+                    .map(
+                        c => `
+                            <li class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                                ${c.complaint}
+                            </li>
+                        `
+                    )
+                    .join('');
+
+            document.getElementById(
+                'listComplaints'
+            ).innerHTML =
+                complaintsList;
+        }
+
+        fetchComplaints();
+
+    </script>
 
 </body>
 
-</html>
-<script>
-async function submitComplaint() {
-    const complaint = document.getElementById('complaint').value;
-    if (complaint.length === 0) {
-        alert('Please enter a complaint before submitting.');
-        return;
-    }
-    const response = await fetch('submit-complaint/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ complaint })
-        
-    })
-
-    if (response.ok) {
-        alert('Complaint submitted successfully!');
-        document.getElementById('complaint').value = '';
-    } else {
-        alert('Failed to submit complaint. Please try again.');
-    }
-}
-</script>
-
-<script>
-
-async function submitComplaint() {
-
-    const complaint = document.getElementById('complaint').value;
-
-    if (complaint.length === 0) {
-        alert('Please enter a complaint before submitting.');
-        return;
-    }
-
-    const response = await fetch('submit-complaint/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ complaint })
-    });
-
-    if (response.ok) {
-
-        alert('Complaint submitted successfully!');
-
-        document.getElementById('complaint').value = '';
-
-        await fetchComplaints();
-    }
-}
-
-async function fetchComplaints() {
-
-    const response = await fetch('my-complaints/');
-
-    const data = await response.json();
-
-    console.log(data);
-
-    const complaints = data.complaints;
-
-    const complaintsList = complaints
-        .map(c => `<li>${c.complaint} - Status: Pending</li>`)
-        .join('');
-
-    document.getElementById('listComplaints').innerHTML = complaintsList;
-}
-
-fetchComplaints();
-
-</script>
 </html>

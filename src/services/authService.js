@@ -1,3 +1,4 @@
+import db from "../config/db.js";
 import bcrypt from "bcrypt";
 import Citizen from "../models/Citizen.js";
 import SuperAdmin from "../models/SuperAdmin.js";
@@ -162,7 +163,31 @@ class AuthService {
       mobile_verified: true,
     });
 
-    return true; 
+    return true;
+  }
+
+  static async getStates() {
+    const [rows] = await db.execute(`
+      SELECT id, name
+      FROM states
+      ORDER BY name ASC
+    `);
+
+    return rows;
+  }
+
+  static async getCities(stateId) {
+    const [rows] = await db.execute(
+      `
+      SELECT id, name
+      FROM cities
+      WHERE state_id = ?
+      ORDER BY name ASC
+      `,
+      [stateId],
+    );
+
+    return rows;
   }
 }
 

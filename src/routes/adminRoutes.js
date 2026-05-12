@@ -2,10 +2,7 @@ import express from "express";
 import path from "path";
 import { rootDir } from "../app.js";
 
-import {
-  requireAdmin
-} from "../middlewares/authMiddleware.js";
-
+import { requireAdmin } from "../middlewares/authMiddleware.js";
 
 import AdminController from "../controllers/adminController.js";
 
@@ -18,7 +15,7 @@ router.get("/dashboard", requireAdmin, (req, res) => {
 
 // Department Management
 router.get("/departments", requireAdmin, (req, res) => {
-  res.render("admin/departments");
+  res.sendFile(path.join(rootDir, "views/admin/departments.html"));
 });
 
 router.get("/departments/create", requireAdmin, (req, res) => {
@@ -26,6 +23,10 @@ router.get("/departments/create", requireAdmin, (req, res) => {
 });
 
 router.post("/departments/create", AdminController.createDepartment);
+
+router.get("/api/states", requireAdmin, AdminController.getStates);
+
+router.get("/api/cities/:stateId", requireAdmin, AdminController.getCities);
 
 // Citizens
 router.get("/citizens", (req, res) => {

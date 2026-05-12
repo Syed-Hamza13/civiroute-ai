@@ -9,6 +9,7 @@ class Department {
     const query = `
       INSERT INTO departments (
         department_type_id,
+        state_id,
         city_id,
         office_name,
         email,
@@ -19,11 +20,12 @@ class Department {
         pincode,
         created_by
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
       data.department_type_id,
+      data.state_id,
       data.city_id,
       data.office_name,
       data.email,
