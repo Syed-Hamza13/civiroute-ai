@@ -197,9 +197,35 @@ class AuthController {
         success: true,
         message: "Account created successfully",
         redirect: "/login",
-      }); 
+      });
     } catch (error) {
       res.status(400).send(error.message);
+    }
+  }
+
+  static async getAvailableStates(req, res) {
+    try {
+      const states = await AuthService.getAvailableStates();
+
+      res.json(states);
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  static async getAvailableCities(req, res) {
+    try {
+      const { stateId } = req.params;
+
+      const cities = await AuthService.getAvailableCities(stateId);
+
+      res.json(cities);
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
     }
   }
 }

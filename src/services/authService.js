@@ -189,6 +189,46 @@ class AuthService {
 
     return rows;
   }
+
+  static async getAvailableStates() {
+    const [rows] = await db.execute(`
+      
+      SELECT DISTINCT
+        states.id,
+        states.name
+
+      FROM states
+
+      INNER JOIN departments
+        ON departments.state_id = states.id
+
+      ORDER BY states.name ASC
+
+    `);
+
+    return rows;
+  }
+  static async getAvailableCities(stateId) {
+    const [rows] = await db.execute(
+      `
+      SELECT DISTINCT
+        cities.id,
+        cities.name
+
+      FROM cities
+
+      INNER JOIN departments
+        ON departments.city_id = cities.id
+
+      WHERE cities.state_id = ?
+
+      ORDER BY cities.name ASC
+      `,
+      [stateId],
+    );
+
+    return rows;
+  }
 }
 
 export default AuthService;

@@ -28,10 +28,8 @@
                 </p>
             </div>
 
-            <a
-                href="/logout"
-                class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition"
-            >
+            <a href="/logout"
+                class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition">
                 Logout
             </a>
 
@@ -57,17 +55,14 @@
                         Submit Complaint
                     </h2>
 
-                    <textarea
-                        id="complaint"
-                        rows="6"
-                        placeholder="Describe your complaint here..."
-                        class="w-full border border-slate-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 resize-none"
-                    ></textarea>
+                    <input type="text" id="complaintTitle" placeholder="Enter complaint title..."
+                        class="w-full border border-slate-300 rounded-xl p-4 mb-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500" />
 
-                    <button
-                        onclick="submitComplaint()"
-                        class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition"
-                    >
+                    <textarea id="complaint" rows="6" placeholder="Describe your complaint here..."
+                        class="w-full border border-slate-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 resize-none"></textarea>
+
+                    <button onclick="submitComplaint()"
+                        class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition">
                         Submit Complaint
                     </button>
 
@@ -81,10 +76,7 @@
                         My Complaints
                     </h2>
 
-                    <ul
-                        id="listComplaints"
-                        class="space-y-3 text-slate-700"
-                    ></ul>
+                    <ul id="listComplaints" class="space-y-3 text-slate-700"></ul>
 
                 </div>
 
@@ -171,10 +163,24 @@
 
         async function submitComplaint() {
 
+            const title =
+                document.getElementById(
+                    'complaintTitle'
+                ).value;
+
             const complaint =
                 document.getElementById(
                     'complaint'
                 ).value;
+
+            if (title.length === 0) {
+
+                alert(
+                    'Please enter a complaint title.'
+                );
+
+                return;
+            }
 
             if (complaint.length === 0) {
 
@@ -197,6 +203,7 @@
                         },
 
                         body: JSON.stringify({
+                            title,
                             complaint
                         })
                     }
@@ -207,6 +214,10 @@
                 alert(
                     'Complaint submitted successfully!'
                 );
+
+                document.getElementById(
+                    'complaintTitle'
+                ).value = '';
 
                 document.getElementById(
                     'complaint'
