@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS citizens;
 DROP TABLE IF EXISTS cities;
 DROP TABLE IF EXISTS states;
 DROP TABLE IF EXISTS super_admins;
-DROP TABLE IF EXISTS email_verifications
+DROP TABLE IF EXISTS email_verifications;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -65,7 +65,7 @@ CREATE TABLE citizens (
     pincode VARCHAR(10),
 
     is_verified BOOLEAN DEFAULT FALSE,
-    mobile_verified BOOLEAN DEFAULT FALSE;
+    mobile_verified BOOLEAN DEFAULT FALSE,
     status ENUM('active','blocked') DEFAULT 'active',
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

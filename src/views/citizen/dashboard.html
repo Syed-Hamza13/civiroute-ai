@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Citizen Dashboard</title>
 </head>
+
 <body>
 
     <h1>Citizen Dashboard</h1>
@@ -15,29 +16,62 @@
     <input type="text" id="complaint" placeholder="Enter your complaint">
     <button onclick="submitComplaint()">Submit Complaint</button>
 
+    <div id="complaints">
+        <h2>My Complaints</h2>
+        <ul id="listComplaints"></ul>
+    </div>
+
 </body>
 <script>
-async function submitComplaint() {
-    const complaint = document.getElementById('complaint').value;
-    if (complaint.length === 0) {
-        alert('Please enter a complaint before submitting.');
-        return;
-    }
-    const response = await fetch('submit-complaint/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ complaint })
-        
-    })
+    async function submitComplaint() {
+        const complaint = document.getElementById('complaint').value;
+        if (complaint.length === 0) {
+            alert('Please enter a complaint before submitting.');
+            return;
+        }
+        const response = await fetch('submit-complaint/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ complaint })
 
-    if (response.ok) {
-        alert('Complaint submitted successfully!');
-        document.getElementById('complaint').value = '';
-    } else {
-        alert('Failed to submit complaint. Please try again.');
+        })
+
+        if (response.ok) {
+            alert('Complaint submitted successfully!');
+            document.getElementById('complaint').value = '';
+            await fetchComplaints();
+        } else {
+            alert('Failed to submit complaint. Please try again.');
+        }
     }
-}
+
+    async function fetchComplaints() {
+
+        const response = await fetch('my-complaints/');
+
+        if (response.ok) {
+
+            const data = await response.json();
+
+            console.log(data);
+
+            const complaints = data.complaints;
+
+            const complaintsList = complaints
+                .map(c => `<li>${c.complaint} - Status: Pending</li>`)
+                .join('');
+
+            document.getElementById('listComplaints').innerHTML = complaintsList;
+
+        } else {
+
+            document.getElementById('listComplaints').innerHTML =
+                '<li>Failed to load complaints.</li>';
+        }
+    }
+
 </script>
+
 </html>

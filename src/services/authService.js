@@ -39,20 +39,38 @@ class AuthService {
       throw new Error("Mobile already registered");
     }
 
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // Hash password
+    const password_hash = await bcrypt.hash(data.password, 10);
 
+    // Create citizen
+    const result = await Citizen.create({
+      full_name: data.full_name,
+      email: data.email,
+      mobile: data.mobile,
+      password_hash: password_hash,
+      address: data.address,
+      city_id: data.city_id,
+      pincode: data.pincode,
+      is_verified: true,
+      mobile_verified: true,
+    });
+
+    // Send welcome email
     await transporter.sendMail({
       from: process.env.MAIL_USER,
       to: data.email,
-      subject: "Email Verification OTP",
+      subject: "Welcome to CiviRoute AI",
       html: `
-      <h2>Email Verification</h2>
-      <h1>${otp}</h1>
-      <p>Valid for 10 minutes</p>
+      <h2>Welcome to CiviRoute AI</h2>
+      <p>Hi ${data.full_name},</p>
+      <p>Your account has been successfully created!</p>
+      <p>You can now login and start filing complaints.</p>
+      <br>
+      <p>Best regards,<br>CiviRoute Team</p>
     `,
     });
 
-    return { otp };
+    return result;
   }
 
   static async loginCitizen(identifier, password) {

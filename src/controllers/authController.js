@@ -1,12 +1,17 @@
 import AuthService from "../services/authService.js";
-
 import Citizen from "../models/Citizen.js";
- class AuthController {
+
+
+
+
+class AuthController {
+  // Helper function to generate JWT token
+  
   static async signup(req, res) {
     try {
       const {
         full_name,
-        email,
+        email, 
         mobile,
         address,
         city_id,
@@ -15,8 +20,19 @@ import Citizen from "../models/Citizen.js";
         confirm_password,
       } = req.body;
 
+      // Validation
+      if (!full_name || !email || !mobile || !address || !city_id || !pincode || !password) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+
       if (password !== confirm_password) {
-        return res.status(400).send("Passwords do not match");
+        return res.status(400).json({
+          success: false,
+          message: "Passwords do not match",
+        });
       }
 
       const normalizedMobile = Citizen.normalizeMobile(mobile);
@@ -31,37 +47,41 @@ import Citizen from "../models/Citizen.js";
         password,
       });
 
-      req.session.pendingSignup = {
-        full_name,
-        email,
-        mobile: normalizedMobile,
-        address,
-        city_id,
-        pincode,
-        password,
-        emailOtp: result.otp,
-        emailVerified: false,
-        mobileVerified: false,
-      };
-
-      res.redirect("/verify-email");
+      return res.status(201).json({
+        success: true,
+        message: "Account created successfully! You can now login.",
+        user: {
+          id: result.insertId,
+          full_name,
+          email,
+          mobile: normalizedMobile,
+        },
+      });
     } catch (error) {
-      res.status(400).send(error.message);
+      console.error("Signup error:", error);
+      res.status(400).json({
+        success: false,
+        message: error.message || "Signup failed",
+      });
     }
   }
 
   static async login(req, res) {
     try {
-      const { identifier, password, role } = req.body;
+      const requestBody = req.body;
+      console.log("Login request body:", requestBody);
+      const { username, identifier, password, role } = req.body;
+
+      // Support both username and identifier parameter names
+      const loginIdentifier = username || identifier;
 
       let user = null;
-      let redirectUrl = "";
 
       // =========================
       // Citizen Login
       // =========================
       if (role === "citizen") {
-        const citizen = await AuthService.loginCitizen(identifier, password);
+        const citizen = await AuthService.loginCitizen(loginIdentifier, password);
 
         user = {
           id: citizen.id,
@@ -70,14 +90,14 @@ import Citizen from "../models/Citizen.js";
           email: citizen.email,
         };
 
-        redirectUrl = "/citizen/dashboard";
+        // redirectUrl = "/citizen/dashboard";
       }
 
       // =========================
       // Admin Login
       // =========================
       else if (role === "admin") {
-        const admin = await AuthService.loginAdmin(identifier, password);
+        const admin = await AuthService.loginAdmin(loginIdentifier, password);
 
         user = {
           id: admin.id,
@@ -86,7 +106,7 @@ import Citizen from "../models/Citizen.js";
           email: admin.email,
         };
 
-        redirectUrl = "/admin/dashboard";
+        // redirectUrl = "/admin/dashboard";
       }
 
       // =========================
@@ -94,7 +114,7 @@ import Citizen from "../models/Citizen.js";
       // =========================
       else if (role === "department") {
         const department = await AuthService.loginDepartment(
-          identifier,
+          loginIdentifier,
           password,
         );
 
@@ -105,7 +125,7 @@ import Citizen from "../models/Citizen.js";
           email: department.email,
         };
 
-        redirectUrl = "/department/dashboard";
+        // redirectUrl = "/department/dashboard";
       } else {
         return res.status(400).send("Invalid role");
       }
@@ -121,13 +141,22 @@ import Citizen from "../models/Citizen.js";
 
         req.session.user = user;
 
+        // Generate JWT token
+        const token = AuthController.generateToken(user);
+
         req.session.save((err) => {
           if (err) {
-            console.error(err);
-            return res.status(500).send("Session save failed");
+            return res.status(500).json({
+              success: false,
+              message: "Session save failed",
+            });
           }
 
-          return res.redirect(redirectUrl);
+          return res.json({
+            success: true,
+            token,
+            user,
+          });
         });
       });
     } catch (error) {
