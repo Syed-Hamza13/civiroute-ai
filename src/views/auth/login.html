@@ -1,33 +1,134 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login - CiviRoute AI</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-<h2>Login</h2>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center px-4">
 
-<form action="/login" method="POST">
-    <label>Login As:</label><br>
-    <select name="role">
-        <option value="citizen">Citizen</option>
-        <option value="department">Department</option>
-        <option value="admin">Admin</option>
-    </select><br><br>
+  <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8">
 
-    <label>Email / Username:</label><br>
-    <input type="text" name="identifier" required><br><br>
+    <!-- HEADER -->
 
-    <label>Password:</label><br>
-    <input type="password" name="password" required><br><br>
+    <div class="text-center mb-8">
 
-    <button type="submit">Login</button>
-</form>
+      <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+        AI
+      </div>
 
-<br>
-<a href="/signup">Create Citizen Account</a>
+      <h2 class="text-3xl font-bold text-slate-800">
+        Login
+      </h2>
+
+      <p class="text-slate-500 mt-2">
+        Access your grievance management portal
+      </p>
+
+    </div>
+
+    <!-- FORM -->
+
+    <form action="/login" method="POST" class="space-y-5">
+
+      <!-- ROLE -->
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-2">
+          Login As
+        </label>
+
+        <select
+          name="role"
+          class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+        >
+          <option value="citizen">Citizen</option>
+          <option value="department">Department</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <!-- EMAIL / USERNAME -->
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-2">
+          Email / Username
+        </label>
+
+        <input
+          type="text"
+          name="identifier"
+          placeholder="Enter email or username"
+          required
+          class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+        >
+      </div>
+
+      <!-- PASSWORD -->
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-2">
+          Password
+        </label>
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter password"
+          required
+          class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+        >
+      </div>
+
+      <!-- REMEMBER + FORGOT -->
+
+      <div class="flex items-center justify-between text-sm">
+
+        <label class="flex items-center gap-2 text-slate-600">
+          <input type="checkbox" class="accent-blue-600">
+          Remember me
+        </label>
+
+        <a
+          href="#"
+          class="text-blue-600 hover:text-blue-700 font-medium"
+        >
+          Forgot Password?
+        </a>
+
+      </div>
+
+      <!-- BUTTON -->
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-semibold text-lg transition duration-300 shadow-lg shadow-blue-200"
+      >
+        Login
+      </button>
+
+    </form>
+
+    <!-- SIGNUP -->
+
+    <p class="mt-6 text-center text-slate-600">
+      Don’t have an account?
+
+      <a
+        href="/signup"
+        class="text-blue-600 font-semibold hover:text-blue-700"
+      >
+        Create Citizen Account
+      </a>
+    </p>
+
+  </div>
 
 </body>
-</html>
 
+</html>

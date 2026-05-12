@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                System Settings
+            </h1>
+
+            <a href="/superadmin/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-4xl mx-auto px-4 py-10 space-y-6">
+
+        <!-- AI SETTINGS -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-lg font-bold text-slate-800 mb-4">
+                🤖 AI Configuration
+            </h2>
+
+            <div class="space-y-4 text-sm">
+
+                <div class="flex items-center justify-between">
+                    <span>Enable AI Classification</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span>Auto Department Routing</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span>Priority Detection</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+                <div>
+                    <label class="text-slate-600">AI Model Version</label>
+                    <select class="w-full mt-2 px-4 py-3 border rounded-xl">
+                        <option>v2.1 (Stable)</option>
+                        <option>v2.2 (Beta)</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SECURITY SETTINGS -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-lg font-bold text-slate-800 mb-4">
+                🔐 Security Settings
+            </h2>
+
+            <div class="space-y-4 text-sm">
+
+                <div class="flex items-center justify-between">
+                    <span>Enable 2FA for Admins</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span>Login Alerts</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span>Encrypt Complaint Data</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- NOTIFICATION SETTINGS -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-lg font-bold text-slate-800 mb-4">
+                🔔 Notification Settings
+            </h2>
+
+            <div class="space-y-4 text-sm">
+
+                <div class="flex items-center justify-between">
+                    <span>Email Alerts</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span>SMS Alerts</span>
+                    <input type="checkbox">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span>Urgent Complaint Alerts</span>
+                    <input type="checkbox" checked class="w-5 h-5">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SYSTEM CONTROL -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-lg font-bold text-slate-800 mb-4">
+                ⚙ System Control
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <button class="bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl">
+                    Restart AI Engine
+                </button>
+
+                <button class="bg-yellow-600 hover:bg-yellow-700 text-white py-3 rounded-xl">
+                    Re-train Model
+                </button>
+
+                <button class="bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl">
+                    Backup Data
+                </button>
+
+                <button class="bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl">
+                    Emergency Lock System
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- SAVE -->
+        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg">
+            Save Settings
+        </button>
+
+    </div>
+
+</body>
+
+</html>

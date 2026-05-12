@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                Notifications
+            </h1>
+
+            <div class="flex gap-4 items-center">
+
+                <a href="/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                    Dashboard
+                </a>
+
+                <a href="/my-complaints" class="text-sm text-slate-600 hover:text-blue-600">
+                    My Complaints
+                </a>
+
+                <a href="/logout" class="text-sm text-red-600 hover:text-red-700 font-medium">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-6xl mx-auto px-4 py-10">
+
+        <!-- HEADER -->
+        <div class="mb-8">
+
+            <h2 class="text-2xl font-bold text-slate-800">
+                Latest Updates
+            </h2>
+
+            <p class="text-slate-500 mt-1">
+                Real-time updates about your complaints, AI processing, and department actions.
+            </p>
+
+        </div>
+
+        <!-- FILTER -->
+        <div class="bg-white rounded-2xl shadow p-4 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+
+            <input
+                type="text"
+                placeholder="Search notifications..."
+                class="w-full md:w-1/2 px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
+            >
+
+            <select class="px-4 py-2 border border-slate-300 rounded-xl">
+                <option>All Notifications</option>
+                <option>AI Updates</option>
+                <option>Status Update</option>
+                <option>Department Response</option>
+            </select>
+
+        </div>
+
+        <!-- NOTIFICATION LIST -->
+        <div class="mt-6 space-y-4">
+
+            <!-- NOTIF 1 -->
+            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-blue-500">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-800">
+                            AI classified your complaint
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            “Street light not working in MP Nagar”
+                        </p>
+
+                        <p class="text-xs text-slate-400 mt-2">
+                            Category: Electricity • Priority: High
+                        </p>
+
+                    </div>
+
+                    <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                        AI Update
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- NOTIF 2 -->
+            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-yellow-500">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-800">
+                            Complaint is under review
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            Your complaint has been assigned to Electricity Department
+                        </p>
+
+                        <p class="text-xs text-slate-400 mt-2">
+                            ETA: 24-48 hours
+                        </p>
+
+                    </div>
+
+                    <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                        Processing
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- NOTIF 3 -->
+            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-green-500">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-800">
+                            Complaint resolved successfully
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            Water supply issue has been fixed in your area
+                        </p>
+
+                        <p class="text-xs text-slate-400 mt-2">
+                            Resolved by: Water Department
+                        </p>
+
+                    </div>
+
+                    <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">
+                        Resolved
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- NOTIF 4 -->
+            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-red-500">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-800">
+                            Urgent complaint escalated
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            High priority issue sent to senior officer
+                        </p>
+
+                        <p class="text-xs text-slate-400 mt-2">
+                            Reason: Public safety risk detected
+                        </p>
+
+                    </div>
+
+                    <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full">
+                        Escalated
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

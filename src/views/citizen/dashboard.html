@@ -1,23 +1,114 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Citizen Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Dashboard - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
     <h1>Citizen Dashboard</h1>
     <p>Login successful.</p>
  
     <a href="/logout">Logout</a>
 
-    <h1>Complaint</h1>
-    <input type="text" id="complaint" placeholder="Enter your complaint">
-    <button onclick="submitComplaint()">Submit Complaint</button>
+        <div class="space-y-6">
+
+            <!-- STATUS CARD -->
+
+            <div class="bg-white rounded-2xl shadow p-6">
+
+                <h3 class="font-semibold text-slate-800 mb-4">
+                    Quick Status
+                </h3>
+
+                <div class="space-y-3 text-sm">
+
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Total Complaints</span>
+                        <span class="font-semibold">0</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Pending</span>
+                        <span class="font-semibold text-yellow-600">0</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Resolved</span>
+                        <span class="font-semibold text-green-600">0</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- AI INFO CARD -->
+
+            <div class="bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl shadow p-6">
+
+                <h3 class="font-semibold text-lg">
+                    AI Processing Engine
+                </h3>
+
+                <p class="text-blue-100 text-sm mt-2">
+                    Your complaint will be automatically:
+                </p>
+
+                <ul class="mt-4 space-y-2 text-sm text-blue-100">
+
+                    <li>• Classified by category</li>
+                    <li>• Sentiment analyzed</li>
+                    <li>• Priority assigned</li>
+                    <li>• Routed to department</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        async function submitComplaint() {
+
+            const complaint =
+                document.getElementById('complaint').value;
+
+            if (complaint.length === 0) {
+                alert('Please enter a complaint before submitting.');
+                return;
+            }
+
+            const response =
+                await fetch('submit-complaint/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ complaint })
+                });
+
+            if (response.ok) {
+                alert('Complaint submitted successfully!');
+                document.getElementById('complaint').value = '';
+            } else {
+                alert('Failed to submit complaint. Please try again.');
+            }
+        }
+
+    </script>
 
     <ul id="listComplaints"></ul>
 
 </body>
+
+</html>
 <script>
 async function submitComplaint() {
     const complaint = document.getElementById('complaint').value;

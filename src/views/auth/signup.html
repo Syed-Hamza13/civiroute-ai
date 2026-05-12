@@ -1,140 +1,348 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citizen Signup - CiviRoute AI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Citizen Signup - CiviRoute AI</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-    <h1>Citizen Signup</h1>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center px-4 py-10">
 
-    <form action="/signup" method="POST">
+  <div class="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+
+    <!-- LEFT SECTION -->
+
+    <div class="bg-gradient-to-br from-blue-700 to-cyan-500 text-white p-10 lg:p-14 flex flex-col justify-between">
+
+      <div>
+        <h1 class="text-4xl font-bold leading-tight">
+          Welcome to <br />
+          CiviRoute AI
+        </h1>
+
+        <p class="mt-6 text-blue-100 text-lg leading-relaxed">
+          Smart AI-powered grievance management platform for faster complaint resolution,
+          intelligent routing, and better public service governance.
+        </p>
+      </div>
+
+      <div class="mt-12 space-y-5">
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            ✓
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg">
+              AI Complaint Classification
+            </h3>
+
+            <p class="text-blue-100 text-sm">
+              Automatically routes complaints to the correct department.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            ✓
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg">
+              Multilingual Support
+            </h3>
+
+            <p class="text-blue-100 text-sm">
+              Supports English and regional languages.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            ✓
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg">
+              Fast Resolution Tracking
+            </h3>
+
+            <p class="text-blue-100 text-sm">
+              Monitor complaint progress in real-time.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SECTION -->
+
+    <div class="p-8 lg:p-12">
+
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-slate-800">
+          Citizen Signup
+        </h2>
+
+        <p class="text-slate-500 mt-2">
+          Create your account to register and track grievances.
+        </p>
+      </div>
+
+      <form action="/signup" method="POST" class="space-y-5">
+
+        <!-- USERNAME -->
 
         <div>
-            <label for="full_name">Full Name</label><br>
+          <!-- <label for="username" class="block text-sm font-medium text-slate-700 mb-2">
+            Username
+          </label>
+
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter username"
+            required
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+          >
+        </div> -->
+
+        <!-- FULL NAME -->
+
+        <div>
+          <label for="full_name" class="block text-sm font-medium text-slate-700 mb-2">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            id="full_name"
+            name="full_name"
+            placeholder="Enter full name"
+            required
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+          >
+        </div>
+
+        <!-- EMAIL + VERIFY -->
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700 mb-2">
+            Email Address
+          </label>
+
+          <div class="flex gap-3">
             <input
-                type="text"
-                id="full_name"
-                name="full_name"
-                required
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter email"
+              required
+              class="flex-1 px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
             >
+
+            <!-- <button
+              type="button"
+              class="px-5 py-3 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+            >
+              Verify
+            </button> -->
+          </div>
         </div>
 
-        <br>
+        <!-- PHONE + VERIFY -->
 
         <div>
-            <label for="email">Email</label><br>
+          <label for="mobile" class="block text-sm font-medium text-slate-700 mb-2">
+            Phone Number
+          </label>
+
+          <div class="flex gap-3">
             <input
-                type="email"
-                id="email"
-                name="email"
-                required
+              type="tel"
+              id="mobile"
+              name="mobile"
+              maxlength="10"
+              placeholder="Enter phone number"
+              required
+              class="flex-1 px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
             >
-        </div>
 
-        <br>
-
-        <div>
-            <label for="mobile">Mobile Number</label><br>
-            <input
-                type="tel"
-                id="mobile"
-                name="mobile"
-                maxlength="10"
-                required
+            <!-- <button
+              type="button"
+              class="px-5 py-3 rounded-xl bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition"
             >
+              OTP
+            </button> -->
+          </div>
         </div>
 
-        <br>
+        <!-- LOCATION -->
 
-        <div>
-            <label for="address">Address</label><br>
-            <textarea
-                id="address"
-                name="address"
-                rows="4"
-                cols="40"
-                required
-            ></textarea>
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-        <br>
+          <!-- STATE -->
 
-        <div>
-            <label for="state">State</label><br>
-            <select id="state" name="state" required>
-                <option value="">Select State</option>
-                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                <option value="Maharashtra">Maharashtra</option>
-                <option value="Gujarat">Gujarat</option>
+          <div>
+            <label for="state" class="block text-sm font-medium text-slate-700 mb-2">
+              State
+            </label>
+
+            <select
+              id="state"
+              name="state"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+            >
+              <option value="">Select State</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Gujarat">Gujarat</option>
             </select>
-        </div>
+          </div>
 
-        <br>
+          <!-- CITY -->
 
-        <div>
-            <label for="city">City</label><br>
-            <select id="city" name="city_id" required>
-                <option value="">Select City</option>
-                <option value="1">Bhopal</option>
-                <option value="2">Indore</option>
-                <option value="3">Jabalpur</option>
+          <div>
+            <label for="city" class="block text-sm font-medium text-slate-700 mb-2">
+              City
+            </label>
+
+            <select
+              id="city"
+              name="city_id"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+            >
+              <option value="">Select City</option>
+              <option value="1">Bhopal</option>
+              <option value="2">Indore</option>
+              <option value="3">Jabalpur</option>
             </select>
+          </div>
+
         </div>
 
-        <br>
+        <!-- ADDRESS -->
 
         <div>
-            <label for="pincode">Pincode</label><br>
-            <input
-                type="text"
-                id="pincode"
-                name="pincode"
-                maxlength="6"
-                required
-            >
+          <label for="address" class="block text-sm font-medium text-slate-700 mb-2">
+            Full Address
+          </label>
+
+          <textarea
+            id="address"
+            name="address"
+            rows="4"
+            placeholder="Enter complete address"
+            required
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 resize-none focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+          ></textarea>
         </div>
 
-        <br>
+        <!-- PINCODE -->
 
         <div>
-            <label for="password">Password</label><br>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
+          <label for="pincode" class="block text-sm font-medium text-slate-700 mb-2">
+            Pincode
+          </label>
+
+          <input
+            type="text"
+            id="pincode"
+            name="pincode"
+            maxlength="6"
+            placeholder="Enter pincode"
+            required
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+          >
         </div>
 
-        <br>
+        <!-- PASSWORDS -->
 
-        <div>
-            <label for="confirm_password">Confirm Password</label><br>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <div>
+            <label for="password" class="block text-sm font-medium text-slate-700 mb-2">
+              Password
+            </label>
+
             <input
-                type="password"
-                id="confirm_password"
-                name="confirm_password"
-                required
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
             >
+          </div>
+
+          <div>
+            <label for="confirm_password" class="block text-sm font-medium text-slate-700 mb-2">
+              Confirm Password
+            </label>
+
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Confirm password"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition"
+            >
+          </div>
+
         </div>
 
-        <br>
+        <!-- TERMS -->
 
-        <button type="submit">
-            Create Account
+        <div class="flex items-start gap-3">
+          <input
+            type="checkbox"
+            required
+            class="mt-1 w-4 h-4 accent-blue-600"
+          >
+
+          <p class="text-sm text-slate-600">
+            I agree to the terms, privacy policy, and secure handling of citizen data.
+          </p>
+        </div>
+
+        <!-- BUTTON -->
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-semibold text-lg transition duration-300 shadow-lg shadow-blue-200"
+        >
+          Create Account
         </button>
 
-    </form>
+      </form>
 
-    <br>
+      <!-- LOGIN -->
 
-    <a href="/login">
-        Already have an account? Login
-    </a>
+      <p class="mt-6 text-center text-slate-600">
+        Already have an account?
+
+        <a
+          href="/login"
+          class="text-blue-600 font-semibold hover:text-blue-700"
+        >
+          Login
+        </a>
+      </p>
+
+    </div>
+
+  </div>
 
 </body>
 </html>
-```

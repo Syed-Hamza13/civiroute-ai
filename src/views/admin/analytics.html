@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI System Analysis - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                AI System Analysis
+            </h1>
+
+            <a href="/superadmin/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-7xl mx-auto px-4 py-10 space-y-6">
+
+        <!-- TOP METRICS -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Total Complaints</p>
+                <h2 class="text-2xl font-bold">1,245</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">AI Accuracy</p>
+                <h2 class="text-2xl font-bold text-green-600">94%</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Avg Response Time</p>
+                <h2 class="text-2xl font-bold text-blue-600">6.2 hrs</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-slate-500 text-sm">Escalation Rate</p>
+                <h2 class="text-2xl font-bold text-red-600">3%</h2>
+            </div>
+
+        </div>
+
+        <!-- AI INSIGHT PANEL -->
+        <div class="bg-gradient-to-br from-indigo-600 to-cyan-500 text-white rounded-2xl shadow p-6">
+
+            <h2 class="text-xl font-bold">
+                AI Insights Summary
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-sm text-indigo-100">
+
+                <div>
+                    <p class="font-semibold text-white">Top Issue</p>
+                    <p>Electricity failures (42%)</p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-white">Fastest Dept</p>
+                    <p>Water Supply Dept</p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-white">Slowest Dept</p>
+                    <p>Road Maintenance</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ANALYSIS SECTION -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- CATEGORY DISTRIBUTION -->
+            <div class="bg-white rounded-2xl shadow p-6">
+
+                <h3 class="font-semibold text-slate-800 mb-4">
+                    Complaint Categories Distribution
+                </h3>
+
+                <div class="space-y-4 text-sm">
+
+                    <div>
+                        <div class="flex justify-between">
+                            <span>Electricity</span>
+                            <span>42%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 mt-1">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width:42%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between">
+                            <span>Water</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 mt-1">
+                            <div class="bg-cyan-600 h-2 rounded-full" style="width:25%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between">
+                            <span>Roads</span>
+                            <span>18%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 mt-1">
+                            <div class="bg-yellow-600 h-2 rounded-full" style="width:18%"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DEPARTMENT PERFORMANCE -->
+            <div class="bg-white rounded-2xl shadow p-6">
+
+                <h3 class="font-semibold text-slate-800 mb-4">
+                    Department Performance
+                </h3>
+
+                <div class="space-y-4 text-sm">
+
+                    <div class="flex justify-between">
+                        <span>Electricity Dept</span>
+                        <span class="text-red-600 font-semibold">Slow</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Water Dept</span>
+                        <span class="text-green-600 font-semibold">Fast</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Sanitation Dept</span>
+                        <span class="text-yellow-600 font-semibold">Average</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Road Dept</span>
+                        <span class="text-red-600 font-semibold">Needs Improvement</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AI LOGS -->
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h3 class="font-semibold text-slate-800 mb-4">
+                AI Processing Logs
+            </h3>
+
+            <div class="space-y-3 text-sm">
+
+                <div class="flex justify-between border-b pb-2">
+                    <p>Complaint CR-10291 classified as Electricity</p>
+                    <span class="text-slate-400">2 sec ago</span>
+                </div>
+
+                <div class="flex justify-between border-b pb-2">
+                    <p>Priority detected: HIGH (safety risk)</p>
+                    <span class="text-slate-400">10 sec ago</span>
+                </div>
+
+                <div class="flex justify-between border-b pb-2">
+                    <p>Routing completed to Electricity Dept</p>
+                    <span class="text-slate-400">15 sec ago</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

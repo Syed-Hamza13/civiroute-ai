@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                My Profile
+            </h1>
+
+            <div class="flex gap-4">
+
+                <a href="/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                    Dashboard
+                </a>
+
+                <a href="/my-complaints" class="text-sm text-slate-600 hover:text-blue-600">
+                    Complaints
+                </a>
+
+                <a href="/logout" class="text-sm text-red-600 hover:text-red-700 font-medium">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- LEFT PROFILE CARD -->
+        <div class="bg-white rounded-2xl shadow p-6 text-center">
+
+            <!-- AVATAR -->
+            <div class="w-24 h-24 mx-auto rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-bold">
+                A
+            </div>
+
+            <h2 class="mt-4 text-xl font-bold text-slate-800">
+                Anuj Tiwari
+            </h2>
+
+            <p class="text-slate-500 text-sm">
+                Citizen Account
+            </p>
+
+            <div class="mt-6 space-y-3 text-sm">
+
+                <div class="bg-slate-50 p-3 rounded-xl">
+                    <p class="text-slate-500">Email Verified</p>
+                    <p class="font-semibold text-green-600">Yes</p>
+                </div>
+
+                <div class="bg-slate-50 p-3 rounded-xl">
+                    <p class="text-slate-500">Mobile Verified</p>
+                    <p class="font-semibold text-green-600">Yes</p>
+                </div>
+
+                <div class="bg-slate-50 p-3 rounded-xl">
+                    <p class="text-slate-500">Complaints Raised</p>
+                    <p class="font-semibold">7</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT EDIT FORM -->
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-xl font-bold text-slate-800 mb-6">
+                Edit Profile Details
+            </h2>
+
+            <form action="/update-profile" method="POST" class="space-y-5">
+
+                <!-- USERNAME -->
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        value="anuj123"
+                        class="w-full mt-2 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:outline-none"
+                    >
+                </div>
+
+                <!-- FULL NAME -->
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Full Name</label>
+                    <input
+                        type="text"
+                        name="full_name"
+                        value="Anuj Tiwari"
+                        class="w-full mt-2 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:outline-none"
+                    >
+                </div>
+
+                <!-- EMAIL -->
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value="anuj@email.com"
+                        class="w-full mt-2 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:outline-none"
+                    >
+                </div>
+
+                <!-- MOBILE -->
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Mobile</label>
+                    <input
+                        type="text"
+                        name="mobile"
+                        value="9999999999"
+                        class="w-full mt-2 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:outline-none"
+                    >
+                </div>
+
+                <!-- LOCATION -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">State</label>
+                        <input
+                            type="text"
+                            name="state"
+                            value="Madhya Pradesh"
+                            class="w-full mt-2 px-4 py-3 border rounded-xl"
+                        >
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">City</label>
+                        <input
+                            type="text"
+                            name="city"
+                            value="Bhopal"
+                            class="w-full mt-2 px-4 py-3 border rounded-xl"
+                        >
+                    </div>
+
+                </div>
+
+                <!-- ADDRESS -->
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Address</label>
+                    <textarea
+                        name="address"
+                        rows="3"
+                        class="w-full mt-2 px-4 py-3 border rounded-xl"
+                    >MP Nagar, Zone 2</textarea>
+                </div>
+
+                <!-- PASSWORD CHANGE (OPTIONAL) -->
+                <div class="bg-slate-50 p-4 rounded-xl">
+
+                    <h3 class="font-semibold text-slate-800 mb-3">
+                        Change Password (Optional)
+                    </h3>
+
+                    <input
+                        type="password"
+                        placeholder="New Password"
+                        class="w-full mb-3 px-4 py-3 border rounded-xl"
+                    >
+
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        class="w-full px-4 py-3 border rounded-xl"
+                    >
+
+                </div>
+
+                <!-- SAVE -->
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold shadow-lg shadow-blue-200"
+                >
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

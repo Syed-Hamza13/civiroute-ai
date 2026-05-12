@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Complaints - CiviRoute AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- NAVBAR -->
+    <div class="bg-white shadow-sm border-b border-slate-200">
+
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+
+            <h1 class="text-xl font-bold text-slate-800">
+                My Complaints
+            </h1>
+
+            <div class="flex gap-4 items-center">
+
+                <a href="/dashboard" class="text-sm text-slate-600 hover:text-blue-600">
+                    Dashboard
+                </a>
+
+                <a href="/logout" class="text-sm text-red-600 hover:text-red-700 font-medium">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="max-w-6xl mx-auto px-4 py-10">
+
+        <!-- HEADER -->
+        <div class="mb-8">
+
+            <h2 class="text-2xl font-bold text-slate-800">
+                Track Your Complaints
+            </h2>
+
+            <p class="text-slate-500 mt-1">
+                All your submitted complaints with AI classification and status updates.
+            </p>
+
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="bg-white rounded-2xl shadow p-4 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+
+            <input
+                type="text"
+                placeholder="Search complaint..."
+                class="w-full md:w-1/2 px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
+            >
+
+            <select class="px-4 py-2 border border-slate-300 rounded-xl">
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Resolved</option>
+            </select>
+
+        </div>
+
+        <!-- COMPLAINT LIST -->
+        <div class="mt-6 space-y-4">
+
+            <!-- CARD 1 -->
+            <div class="bg-white rounded-2xl shadow p-5">
+
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+                    <div>
+                        <h3 class="font-semibold text-slate-800">
+                            Street light not working in MP Nagar
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            ID: CR-10291 • Submitted: 2 days ago
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2">
+
+                        <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
+                            Pending
+                        </span>
+
+                        <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
+                            Electricity
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <p class="text-slate-500">AI Priority</p>
+                        <p class="font-semibold text-red-600">High</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <p class="text-slate-500">Assigned Dept</p>
+                        <p class="font-semibold">Electricity Board</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <p class="text-slate-500">Expected Resolve</p>
+                        <p class="font-semibold">24-48 hrs</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bg-white rounded-2xl shadow p-5">
+
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+                    <div>
+                        <h3 class="font-semibold text-slate-800">
+                            Water supply not available in my area
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            ID: CR-10255 • Submitted: 5 days ago
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2">
+
+                        <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
+                            Resolved
+                        </span>
+
+                        <span class="px-3 py-1 text-xs rounded-full bg-cyan-100 text-cyan-700">
+                            Water Supply
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <p class="text-slate-500">AI Priority</p>
+                        <p class="font-semibold text-yellow-600">Medium</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <p class="text-slate-500">Assigned Dept</p>
+                        <p class="font-semibold">Water Department</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <p class="text-slate-500">Resolved In</p>
+                        <p class="font-semibold">3 Days</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
