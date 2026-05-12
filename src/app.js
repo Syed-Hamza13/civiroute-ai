@@ -67,11 +67,11 @@ app.use(
 app.use(express.static(path.join(__dirname, "../public")));
 
 // routes
-app.use("/", authRoutes);
-app.use("/citizen", citizenRoutes);
-app.use("/admin", adminRoutes);
-app.use("/department", departmentRoutes);
-app.use("/complaints", complaintRoutes);
-app.use("/ai", aiRoutes);
+app.use("/api", authRoutes);
+app.use("/api/citizen", citizenRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/department", departmentRoutes);
+app.use("/api/complaints", complaintRoutes);
+app.use("/api/ai", aiRoutes);
 
 export default app;
