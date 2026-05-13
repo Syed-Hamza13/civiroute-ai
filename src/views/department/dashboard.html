@@ -204,6 +204,91 @@
                         ${c.description}
 
                     </p>
+                    <div class="
+    mt-4
+    flex
+    flex-col
+    md:flex-row
+    gap-3
+">
+
+    <select
+        id="status-${c.id}"
+        class="
+            px-4
+            py-2
+            border
+            rounded-xl
+        "
+    >
+
+        <option value="submitted"
+            ${c.status === 'submitted'
+                    ? 'selected'
+                    : ''}>
+            Submitted
+        </option>
+
+        <option value="assigned"
+            ${c.status === 'assigned'
+                    ? 'selected'
+                    : ''}>
+            Assigned
+        </option>
+
+        <option value="in_progress"
+            ${c.status === 'in_progress'
+                    ? 'selected'
+                    : ''}>
+            In Progress
+        </option>
+
+        <option value="resolved"
+            ${c.status === 'resolved'
+                    ? 'selected'
+                    : ''}>
+            Resolved
+        </option>
+
+        <option value="closed"
+            ${c.status === 'closed'
+                    ? 'selected'
+                    : ''}>
+            Closed
+        </option>
+
+        <option value="rejected"
+            ${c.status === 'rejected'
+                    ? 'selected'
+                    : ''}>
+            Rejected
+        </option>
+
+    </select>
+
+    <button
+
+        onclick="
+            updateStatus(
+                ${c.id}
+            )
+        "
+
+        class="
+            bg-blue-600
+            hover:bg-blue-700
+            text-white
+            px-5
+            py-2
+            rounded-xl
+        "
+    >
+
+        Update Status
+
+    </button>
+
+</div>
 
                 </div>
 
@@ -217,6 +302,53 @@
     }
 
     loadComplaints();
+
+    async function updateStatus(
+        complaintId
+    ) {
+
+        const status =
+            document.getElementById(
+                `status-${complaintId}`
+            ).value;
+
+        const response =
+            await fetch(
+
+                `/department/complaints/${complaintId}/status`,
+
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        status
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (data.success) {
+
+            alert(
+                "Status updated successfully"
+            );
+
+            loadComplaints();
+
+        } else {
+
+            alert(
+                data.message
+            );
+        }
+    }
 
 </script>
 

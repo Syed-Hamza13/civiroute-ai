@@ -107,6 +107,31 @@ class Complaint {
 
     return rows;
   }
+
+  static async updateStatus(complaintId, status) {
+    const query = `
+
+    UPDATE complaints
+
+    SET
+      status = ?,
+      updated_at = NOW(),
+
+      resolved_at =
+        CASE
+          WHEN ? = 'resolved'
+          THEN NOW()
+          ELSE resolved_at
+        END
+
+    WHERE id = ?
+
+  `;
+
+    const [result] = await db.execute(query, [status, status, complaintId]);
+
+    return result;
+  }
 }
 
 export default Complaint;

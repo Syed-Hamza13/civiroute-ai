@@ -3,13 +3,16 @@ import path from "path";
 import { rootDir } from "../app.js";
 import { requireDepartment } from "../middlewares/authMiddleware.js";
 const router = express.Router();
-import { getDepartmentComplaints } from "../controllers/departmentController.js";
+import {
+  getDepartmentComplaints,
+  updateComplaintStatus,
+} from "../controllers/departmentController.js";
 
 // Dashboard
 router.get("/dashboard", requireDepartment, (req, res) => {
   res.sendFile(path.join(rootDir, "views/department/dashboard.html"));
 });
- 
+
 // Assigned complaints
 router.get("/complaints", getDepartmentComplaints);
 
@@ -20,10 +23,11 @@ router.get("/complaints/:id", (req, res) => {
   });
 });
 
+router.patch("/complaints/:id/status", updateComplaintStatus);
+
 // Profile
 router.get("/profile", (req, res) => {
   res.render("department/profile");
 });
 
 export default router;
- 
