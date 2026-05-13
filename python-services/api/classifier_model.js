@@ -21,6 +21,8 @@ export async function classifyComplaint(complaintText) {
     });
 
     console.log(response.data);
+
+    return response.data;
   } catch (error) {
     console.log("Python API error:", error.message);
 

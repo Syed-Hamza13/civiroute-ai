@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/dashboard",requireCitizen, (req, res) => {
   res.sendFile(path.join(rootDir, "views/citizen/dashboard.html"));
 });
-
+ 
 // Complaint pages
 router.post("/submit-complaint", submitComplaint)
 

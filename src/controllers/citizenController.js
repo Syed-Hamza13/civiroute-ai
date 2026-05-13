@@ -24,6 +24,7 @@ export async function submitComplaint(req, res) {
       await classifyComplaint(
         complaint
       );
+      
 
     console.log(
       "AI Classification Result:",
@@ -46,13 +47,13 @@ export async function submitComplaint(req, res) {
     if (
       detectedDepartment.includes("road")
     ) {
-      predictedDepartmentTypeId = 1;
+      predictedDepartmentTypeId = 3;
     }
 
     else if (
       detectedDepartment.includes("water")
     ) {
-      predictedDepartmentTypeId = 2;
+      predictedDepartmentTypeId = 1;
     }
 
     else if (
@@ -68,7 +69,7 @@ export async function submitComplaint(req, res) {
       ||
       detectedDepartment.includes("lighting")
     ) {
-      predictedDepartmentTypeId = 3;
+      predictedDepartmentTypeId = 2;
     }
 
     // =========================
@@ -157,7 +158,7 @@ export async function myComplaints(
       req.session.user.id;
 
     const complaints =
-      await Complaint.findByCitizen(
+      await Complaint.findByCitizen( 
         citizenId
       );
 
