@@ -74,132 +74,12 @@
                     Assigned Complaints
                 </h2>
 
-                <input
-                    type="text"
-                    placeholder="Search complaints..."
-                    class="px-4 py-2 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
-                >
+                <input type="text" placeholder="Search complaints..."
+                    class="px-4 py-2 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100">
 
             </div>
 
-            <!-- CARD 1 -->
-            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-red-500">
-
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-                    <div>
-
-                        <h3 class="font-semibold text-slate-800">
-                            Street light not working in MP Nagar
-                        </h3>
-
-                        <p class="text-sm text-slate-500 mt-1">
-                            ID: CR-10291 • Assigned: Electricity Dept
-                        </p>
-
-                    </div>
-
-                    <div class="flex gap-2">
-
-                        <span class="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-full">
-                            High Priority
-                        </span>
-
-                        <span class="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
-                            Electricity
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- AI INSIGHT -->
-                <div class="mt-4 bg-slate-50 p-4 rounded-xl text-sm">
-
-                    <p class="text-slate-600">
-                        <span class="font-semibold">AI Insight:</span>
-                        Likely transformer failure in locality.
-                    </p>
-
-                </div>
-
-                <!-- ACTIONS -->
-                <div class="mt-4 flex flex-col md:flex-row gap-3">
-
-                    <select class="px-4 py-2 border rounded-xl">
-                        <option>Mark Status</option>
-                        <option>In Progress</option>
-                        <option>Resolved</option>
-                        <option>Escalated</option>
-                    </select>
-
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl">
-                        Update
-                    </button>
-
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl">
-                        Mark Resolved
-                    </button>
-
-                </div>
-
-            </div>
-
-            <!-- CARD 2 -->
-            <div class="bg-white rounded-2xl shadow p-5 border-l-4 border-yellow-500">
-
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-                    <div>
-
-                        <h3 class="font-semibold text-slate-800">
-                            Water leakage in pipeline
-                        </h3>
-
-                        <p class="text-sm text-slate-500 mt-1">
-                            ID: CR-10188 • Assigned: Water Dept
-                        </p>
-
-                    </div>
-
-                    <div class="flex gap-2">
-
-                        <span class="px-3 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-full">
-                            Medium Priority
-                        </span>
-
-                        <span class="px-3 py-1 text-xs bg-cyan-100 text-cyan-700 rounded-full">
-                            Water Supply
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="mt-4 bg-slate-50 p-4 rounded-xl text-sm">
-
-                    <p class="text-slate-600">
-                        <span class="font-semibold">AI Insight:</span>
-                        Possible underground pipe damage detected.
-                    </p>
-
-                </div>
-
-                <div class="mt-4 flex gap-3">
-
-                    <select class="px-4 py-2 border rounded-xl">
-                        <option>Mark Status</option>
-                        <option>In Progress</option>
-                        <option>Resolved</option>
-                        <option>Escalated</option>
-                    </select>
-
-                    <button class="bg-blue-600 text-white px-5 py-2 rounded-xl">
-                        Update
-                    </button>
-
-                </div>
-
+            <div id="complaintsContainer" class="space-y-4">
             </div>
 
         </div>
@@ -207,5 +87,137 @@
     </div>
 
 </body>
+<script>
+
+    async function loadComplaints() {
+
+        const response =
+            await fetch(
+                "/department/complaints"
+            );
+
+        const data =
+            await response.json();
+
+        const complaints =
+            data.complaints || [];
+
+        const html =
+            complaints.map(c => `
+
+            <div class="
+                bg-white
+                rounded-2xl
+                shadow
+                p-5
+                border-l-4
+
+                ${c.priority === 'critical'
+                    ? 'border-red-700'
+                    : ''}
+
+                ${c.priority === 'high'
+                    ? 'border-red-500'
+                    : ''}
+
+                ${c.priority === 'medium'
+                    ? 'border-yellow-500'
+                    : ''}
+
+                ${c.priority === 'low'
+                    ? 'border-green-500'
+                    : ''}
+            ">
+
+                <div class="
+                    flex
+                    flex-col
+                    md:flex-row
+                    md:items-center
+                    md:justify-between
+                    gap-3
+                ">
+
+                    <div>
+
+                        <h3 class="
+                            font-semibold
+                            text-slate-800
+                        ">
+                            ${c.title}
+                        </h3>
+
+                        <p class="
+                            text-sm
+                            text-slate-500
+                            mt-1
+                        ">
+                            Citizen:
+                            ${c.full_name}
+                        </p>
+
+                    </div>
+
+                    <div class="flex gap-2">
+
+                        <span class="
+                            px-3
+                            py-1
+                            text-xs
+                            rounded-full
+
+                            ${c.priority === 'critical'
+                    ? 'bg-red-200 text-red-900'
+                    : ''}
+
+                            ${c.priority === 'high'
+                    ? 'bg-red-100 text-red-700'
+                    : ''}
+
+                            ${c.priority === 'medium'
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : ''}
+
+                            ${c.priority === 'low'
+                    ? 'bg-green-100 text-green-700'
+                    : ''}
+                        ">
+
+                            ${c.priority}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="
+                    mt-4
+                    bg-slate-50
+                    p-4
+                    rounded-xl
+                    text-sm
+                ">
+
+                    <p class="text-slate-700">
+
+                        ${c.description}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+        document.getElementById(
+            "complaintsContainer"
+        ).innerHTML = html;
+    }
+
+    loadComplaints();
+
+</script>
 
 </html>
