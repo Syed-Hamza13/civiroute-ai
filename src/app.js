@@ -16,6 +16,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import departmentRoutes from "./routes/departmentRoutes.js";
 import complaintRoutes from "./routes/complaintRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
+import supervisorRoutes from "./routes/supervisorRoutes.js";
 
 dotenv.config();
 
@@ -68,5 +69,6 @@ app.use("/admin", adminRoutes);
 app.use("/department", departmentRoutes);
 app.use("/complaints", complaintRoutes);
 app.use("/ai", aiRoutes);
+app.use("/supervisor", supervisorRoutes);
 
 export default app;

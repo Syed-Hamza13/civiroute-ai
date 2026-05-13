@@ -42,3 +42,16 @@ export function requireAdmin(req, res, next) {
 
   next();
 }
+
+export function requireSupervisor(req, res, next) {
+
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  if (req.session.user.role !== "supervisor") {
+    return res.status(403).send("Forbidden");
+  }
+
+  next();
+}
