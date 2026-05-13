@@ -156,7 +156,7 @@
                     <textarea name="address" rows="4"
                         class="w-full mt-2 px-4 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
                         placeholder="Full office address"></textarea>
-
+                    pincode
                 </div>
 
                 <!-- PINCODE -->
@@ -169,6 +169,30 @@
                     <input type="text" name="pincode"
                         class="w-full mt-2 px-4 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100"
                         placeholder="e.g. 462001">
+
+                </div>
+                <div class="border-t pt-6">
+
+                    <h3 class="text-lg font-bold mb-4">
+                        Supervisors
+                    </h3>
+
+                    <div id="supervisorContainer">
+
+                    </div>
+
+                    <button type="button" onclick="addSupervisor()" class="
+            mt-4
+            bg-slate-800
+            text-white
+            px-4
+            py-2
+            rounded-xl
+        ">
+
+                        + Add Supervisor
+
+                    </button>
 
                 </div>
 
@@ -326,6 +350,115 @@
     // ========================
 
     loadStates();
+
+</script>
+
+<script>
+
+let supervisorIndex = 0;
+
+function addSupervisor() {
+
+    const html = `
+
+        <div class="
+            border
+            rounded-xl
+            p-4
+            mt-4
+            space-y-3
+        ">
+
+            <input
+                type="text"
+
+                name="supervisors[${supervisorIndex}][full_name]"
+
+                placeholder="Supervisor Name"
+
+                class="
+                    w-full
+                    border
+                    rounded-xl
+                    p-3
+                "
+            >
+
+            <input
+                type="email"
+
+                name="supervisors[${supervisorIndex}][email]"
+
+                placeholder="Supervisor Email"
+
+                class="
+                    w-full
+                    border
+                    rounded-xl
+                    p-3
+                "
+            >
+
+            <input
+                type="text"
+
+                name="supervisors[${supervisorIndex}][mobile]"
+
+                placeholder="Supervisor Mobile"
+
+                class="
+                    w-full
+                    border
+                    rounded-xl
+                    p-3
+                "
+            >
+
+            <input
+                type="text"
+
+                name="supervisors[${supervisorIndex}][username]"
+
+                placeholder="Supervisor Username"
+
+                class="
+                    w-full
+                    border
+                    rounded-xl
+                    p-3
+                "
+            >
+
+            <input
+                type="password"
+
+                name="supervisors[${supervisorIndex}][password]"
+
+                placeholder="Supervisor Password"
+
+                class="
+                    w-full
+                    border
+                    rounded-xl
+                    p-3
+                "
+            >
+
+        </div>
+
+    `;
+
+    document
+        .getElementById(
+            "supervisorContainer"
+        )
+        .insertAdjacentHTML(
+            "beforeend",
+            html
+        );
+
+    supervisorIndex++;
+}
 
 </script>
 

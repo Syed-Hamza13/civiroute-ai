@@ -14,6 +14,7 @@ class AdminController {
         password,
         address,
         pincode,
+        supervisors,
       } = req.body;
 
       await AuthService.createDepartment({
@@ -27,6 +28,7 @@ class AdminController {
         password,
         address,
         pincode,
+        supervisors,
         created_by: req.session?.user?.id,
       });
 

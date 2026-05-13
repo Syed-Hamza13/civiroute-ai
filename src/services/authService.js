@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import Citizen from "../models/Citizen.js";
 import SuperAdmin from "../models/SuperAdmin.js";
 import Department from "../models/Department.js";
+import Supervisor from "../models/Supervisor.js";
 
 import transporter from "../config/mail.js";
 import EmailVerification from "../models/EmailVerification.js";
@@ -80,22 +81,95 @@ class AuthService {
     return citizen;
   }
 
-  static async createDepartment(data) {
-    const existingDepartment = await Department.findByIdentifier(data.username);
+  static async createDepartment(
+  data
+) {
 
-    if (existingDepartment) {
-      throw new Error("Department username already exists");
-    }
+  const existingDepartment =
+    await Department.findByIdentifier(
+      data.username
+    );
 
-    const password_hash = await bcrypt.hash(data.password, 10);
+  if (existingDepartment) {
 
-    const result = await Department.create({
+    throw new Error(
+      "Department username already exists"
+    );
+  }
+
+  const password_hash =
+    await bcrypt.hash(
+      data.password,
+      10
+    );
+
+  // ======================
+  // CREATE DEPARTMENT
+  // ======================
+
+  const department =
+    await Department.create({
+
       ...data,
-      password_hash,
+
+      password_hash
+
     });
 
-    return result;
+  // ======================
+  // CREATE SUPERVISORS
+  // ======================
+
+  if (
+    data.supervisors &&
+    Array.isArray(
+      data.supervisors
+    )
+  ) {
+
+    for (
+      const supervisor
+      of data.supervisors
+    ) {
+
+      if (
+        !supervisor.full_name
+      ) {
+        continue;
+      }
+
+      const supervisorPassword =
+        await bcrypt.hash(
+          supervisor.password,
+          10
+        );
+
+      await Supervisor.create({
+
+        department_id:
+          department.insertId,
+
+        full_name:
+          supervisor.full_name,
+
+        email:
+          supervisor.email,
+
+        mobile:
+          supervisor.mobile,
+
+        username:
+          supervisor.username,
+
+        password_hash:
+          supervisorPassword
+
+      });
+    }
   }
+
+  return department;
+}
 
   static async loginDepartment(identifier, password) {
     const department = await Department.findByIdentifier(identifier);
@@ -174,6 +248,21 @@ class AuthService {
     `);
 
     return rows;
+  }
+  static async loginSupervisor(identifier, password) {
+    const supervisor = await Supervisor.findByIdentifier(identifier);
+
+    if (!supervisor) {
+      throw new Error("Supervisor account not found");
+    }
+
+    const isMatch = await bcrypt.compare(password, supervisor.password_hash);
+
+    if (!isMatch) {
+      throw new Error("Invalid password");
+    }
+
+    return supervisor;
   }
 
   static async getCities(stateId) {

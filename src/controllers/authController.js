@@ -106,6 +106,23 @@ class AuthController {
         };
 
         redirectUrl = "/department/dashboard";
+      } else if (role === "supervisor") {
+        const supervisor = await AuthService.loginSupervisor(
+          identifier,
+          password,
+        );
+
+        user = {
+          id: supervisor.id,
+
+          role: "supervisor",
+
+          name: supervisor.full_name,
+
+          email: supervisor.email,
+        };
+
+        redirectUrl = "/supervisor/dashboard";
       } else {
         return res.status(400).send("Invalid role");
       }
