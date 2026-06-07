@@ -1,5 +1,6 @@
 import Complaint from "../models/Complaint.js";
 import Department from "../models/Department.js";
+import Supervisor from "../models/Supervisor.js";
 
 export async function getDepartmentComplaints(req, res) {
   try {
@@ -69,5 +70,43 @@ export async function updateComplaintStatus(req, res) {
       success: false,
       message: error.message,
     });
+  }
+
+  export async function assignComplaint(req, res) {
+    try {
+      const complaintId = req.params.id;
+
+      const { supervisorId } = req.body;
+
+      await Complaint.assignSupervisor(complaintId, supervisorId);
+
+      res.json({
+        success: true,
+        message: "Complaint assigned",
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  export async function getDepartmentSupervisors(req, res) {
+    try {
+      const departmentId = req.session.user.id;
+
+      const supervisors = await Supervisor.findByDepartment(departmentId);
+
+      res.json({
+        success: true,
+        supervisors,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
   }
 }

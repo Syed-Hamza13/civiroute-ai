@@ -6,6 +6,8 @@ const router = express.Router();
 import {
   getDepartmentComplaints,
   updateComplaintStatus,
+  assignComplaint,
+  getDepartmentSupervisors,
 } from "../controllers/departmentController.js";
 
 // Dashboard
@@ -25,9 +27,13 @@ router.get("/complaints/:id", (req, res) => {
 
 router.patch("/complaints/:id/status", updateComplaintStatus);
 
+router.get("/supervisors", getDepartmentSupervisors);
+
+router.patch("/complaints/:id/assign", assignComplaint);
+
 // Profile
 router.get("/profile", (req, res) => {
   res.render("department/profile");
 });
 
-export default router;
+export default router; 

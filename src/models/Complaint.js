@@ -132,6 +132,105 @@ class Complaint {
 
     return result;
   }
+
+  static async assignSupervisor(complaintId, supervisorId) {
+    const query = `
+
+    UPDATE complaints
+
+    SET
+      assigned_supervisor_id = ?,
+      status = 'assigned',
+      updated_at = NOW()
+
+    WHERE id = ?
+
+  `;
+
+    const [result] = await db.execute(query, [supervisorId, complaintId]);
+
+    return result;
+  }
+
+  static async findBySupervisor(supervisorId) {
+    const query = `
+
+    SELECT
+
+      complaints.id,
+      complaints.title,
+      complaints.description,
+      complaints.priority,
+      complaints.status,
+      complaints.supervisor_status,
+      complaints.supervisor_remark,
+
+      citizens.full_name,
+
+      department_types.name
+      AS department_name
+
+    FROM complaints
+
+    INNER JOIN citizens
+      ON citizens.id =
+      complaints.citizen_id
+
+    LEFT JOIN department_types
+      ON department_types.id =
+      complaints.predicted_department_type_id
+
+    WHERE
+      complaints.assigned_supervisor_id = ?
+
+    ORDER BY complaints.id DESC
+
+  `;
+
+    const [rows] = await db.execute(query, [supervisorId]);
+
+    return rows;
+  }
+
+  static async updateSupervisorComplaint(complaintId, status, remark) {
+    const query = `
+
+    UPDATE complaints
+
+    SET
+
+      supervisor_status = ?,
+      supervisor_remark = ?,
+
+      status =
+        CASE
+
+          WHEN ? = 'resolved'
+          THEN 'resolved'
+
+          WHEN ? = 'in_progress'
+          THEN 'in_progress'
+
+          ELSE status
+
+        END,
+
+      updated_at = NOW()
+
+    WHERE id = ?
+
+  `;
+
+    const [result] = await db.execute(query, [
+      status,
+      remark,
+      status,
+      status,
+      complaintId,
+    ]);
+
+    return result;
+  }
 }
 
 export default Complaint;
