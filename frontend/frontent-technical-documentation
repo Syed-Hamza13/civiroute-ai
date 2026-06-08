@@ -1,0 +1,224 @@
+Bhai Meer, ye ekdum professional aur forward-thinking step hai. Coding me jump karne se pehle frontend-to-backend data contract (API Documentation) likh lena ek expert architect ki nishani hai. Isse backend banate waqt hume exactly pata hoga ki req body me kya aayega aur response me kya bhejna hai.
+
+Maine saare 6 pages (`Login`, `Signup`, `Citizen`, `Supervisor`, `DeptHead`, `SuperAdmin`) ke React states aur data flow ko analyze karke ek complete, production-ready **API Contract & Integration Document** taiyar kar diya hai.
+
+---
+
+# 🚀 API & Integration Documentation (Frontend-to-Backend Contract)
+
+## 1. Authentication Module 🔐
+
+### A. Citizen Registration
+
+* **Endpoint:** `POST /api/auth/register`
+* **Description:** Registers a new citizen user. Geo-fenced data is strictly validated.
+* **Content-Type:** `application/json`
+* **Request Body:**
+```json
+{
+  "name": "Hamza Meer",
+  "mobile": "9876543210",
+  "email": "meer@example.com",
+  "address": "Zone 1, MP Nagar",
+  "state": "Madhya Pradesh",
+  "city": "Bhopal",
+  "pincode": "462001",
+  "password": "hashed_password"
+}
+
+```
+
+
+* **Expected Response (201 Created):** `{ "message": "Citizen registered successfully", "userId": "..." }`
+
+### B. Universal Login
+
+* **Endpoint:** `POST /api/auth/login`
+* **Description:** Unified login for all 4 roles. Issues a session/JWT token.
+* **Content-Type:** `application/json`
+* **Request Body:**
+```json
+{
+  "role": "Citizen | Supervisor | DeptHead | SuperAdmin",
+  "username": "meer@example.com", 
+  "password": "password123"
+}
+
+```
+
+
+* **Expected Response (200 OK):** `{ "message": "Login successful", "role": "Citizen", "token": "..." }`
+
+---
+
+## 2. Super Admin Dashboard 🌍
+
+### A. Fetch Onboarded Departments
+
+* **Endpoint:** `GET /api/superadmin/departments`
+* **Description:** Fetches all department head accounts across all states.
+* **Expected Response (200 OK):**
+```json
+[
+  {
+    "id": "ObjectId",
+    "state": "Madhya Pradesh",
+    "city": "Bhopal",
+    "deptName": "PWD",
+    "headName": "Ramesh Kumar",
+    "email": "ramesh.pwd@gov.in",
+    "mobile": "9876543210"
+  }
+]
+
+```
+
+
+
+### B. Onboard New Department Head
+
+* **Endpoint:** `POST /api/superadmin/departments`
+* **Description:** Creates a new Department Head account.
+* **Request Body:** (Same keys as frontend `formData`)
+```json
+{
+  "state": "Madhya Pradesh",
+  "city": "Indore",
+  "pincode": "452001",
+  "deptName": "Water",
+  "headName": "Sunita Sharma",
+  "mobile": "8765432109",
+  "email": "sunita.water@gov.in"
+}
+
+```
+
+
+
+### C. Remove Department Head
+
+* **Endpoint:** `DELETE /api/superadmin/departments/:id`
+* **Description:** Deletes a department head account.
+
+---
+
+## 3. Department Head Dashboard 🏢
+
+### A. Fetch Department's Complaints
+
+* **Endpoint:** `GET /api/depthead/complaints`
+* **Description:** Fetches complaints strictly filtered by the DeptHead's `state`, `city`, and `department`.
+* **Expected Response (200 OK):**
+```json
+[
+  {
+    "id": "C-101",
+    "title": "Road cave-in near market",
+    "urgency": "High",
+    "status": "Pending Approval",
+    "assignedTo": "Vikram Singh",
+    "date": "2026-06-03",
+    "resolution": {
+       "desc": "Filled the cave-in...",
+       "image": "url_to_image"
+    }
+  }
+]
+
+```
+
+
+
+### B. Manage Supervisors (Fetch & Create)
+
+* **Endpoint:** `GET /api/depthead/supervisors` (Returns list of supervisors under this DeptHead).
+* **Endpoint:** `POST /api/depthead/supervisors` (Creates a new supervisor).
+* **Request Body for POST:**
+```json
+{
+  "name": "Raju Mechanic",
+  "mobile": "9988776655",
+  "email": "raju@pwd.gov.in",
+  "password": "temp_password"
+}
+
+```
+
+
+*(Note for Backend: `state`, `city`, and `department` must be auto-injected from the DeptHead's secure session token).*
+
+### C. Assign Ticket to Supervisor
+
+* **Endpoint:** `PATCH /api/depthead/complaints/assign`
+* **Request Body:**
+```json
+{
+  "complaintId": "C-101",
+  "supervisorId": "sup_1"
+}
+
+```
+
+
+
+### D. Audit Resolution (Approve/Reject)
+
+* **Endpoint:** `PATCH /api/depthead/complaints/approve`
+* **Request Body:**
+```json
+{
+  "complaintId": "C-103",
+  "action": "Approve" 
+}
+
+```
+
+
+*(Note for Backend: If "Approve", change status to `Resolved`. If "Reject", revert status to `Assigned`).*
+
+---
+
+## 4. Supervisor Dashboard 👷‍♂️
+
+### A. Fetch Assigned Worklist
+
+* **Endpoint:** `GET /api/supervisor/complaints`
+* **Description:** Fetches complaints where `assignedSupervisorId` matches the logged-in user.
+
+### B. Submit Resolution Proof
+
+* **Endpoint:** `POST /api/supervisor/complaints/resolve`
+* **Content-Type:** `multipart/form-data` *(Crucial: Because of image upload)*
+* **Request Payload (Form Data):**
+* `complaintId`: "C-102"
+* `description`: "Fixed the broken divider with concrete."
+* `proofImage`: [Binary File Data]
+
+
+* *(Note for Backend: Upload image to Cloudinary/S3, get URL, save to DB, and change status to `Pending Approval`).*
+
+---
+
+## 5. Citizen Dashboard 🙋‍♂️
+
+### A. Fetch My Complaints
+
+* **Endpoint:** `GET /api/citizen/complaints`
+* **Description:** Fetches timeline data for the logged-in citizen.
+* **Expected Response (200 OK):** Array of objects containing `title`, `desc`, `aiDepartment`, `urgency`, `status`, `date`, and `resolution`.
+
+### B. Lodge Smart Grievance (AI Trigger)
+
+* **Endpoint:** `POST /api/citizen/complaints`
+* **Content-Type:** `multipart/form-data`
+* **Request Payload (Form Data):**
+* `title`: "Huge Pothole on MG Road"
+* `description`: "Deep pothole causing traffic issues."
+* `document`: [Binary File Data - Optional]
+
+
+* *(Note for Backend: Here, the backend will first pass the `title` and `description` to the **Mock AI/BERT Module**. The AI will return `{"department": "PWD", "urgency": "High"}`. Then, the backend saves the complete document in MongoDB).*
+
+---
+
+Is document ko apne reference ke liye save kar lo. Jab hum backend ke controllers aur routes design karenge, toh main exactly yahi keys aur payloads use karunga taaki React directly Node.js se bina kisi error ke connect ho jaye.
