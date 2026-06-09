@@ -1,0 +1,178 @@
+
+---
+
+# 🚀 Backend API Documentation (CiviRoute AI Grievance System)
+
+## 🛠️ CRITICAL: Axios Setup (For Session Cookies)
+
+Frontend se request bhejte waqt hamesha `withCredentials: true` bhejna hoga, warna browser session cookie save nahi karega aur har protected route par `401 Unauthorized` aayega.
+
+**Axios Config Example (Frontend me API service banate waqt):**
+
+```javascript
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api', // Backend URL
+  withCredentials: true // ⚠️ IMPORTANT FOR SESSIONS
+});
+
+export default api;
+
+```
+
+---
+
+## 🔐 1. Authentication Module (`/api/auth`)
+
+| Method | Endpoint | Description | Payload Type |
+| --- | --- | --- | --- |
+| **POST** | `/register` | Citizen naya account banayega | `application/json` |
+| **POST** | `/login` | Universal Login (Sabhi roles ke liye) | `application/json` |
+| **POST** | `/logout` | Session destroy aur logout karega | None |
+| **GET** | `/me` | Current logged-in user ki details dega (Protected) | None |
+
+**Payload: `POST /register**`
+
+```json
+{
+  "name": "John Doe",
+  "mobile": "9876543210",
+  "email": "john@example.com",
+  "address": "123 Main St",
+  "state": "Madhya Pradesh",
+  "city": "Bhopal",
+  "pincode": "462001",
+  "password": "Password123"
+}
+
+```
+
+**Payload: `POST /login**`
+
+```json
+{
+  "role": "Citizen", // Or "Supervisor", "DeptHead", "SuperAdmin"
+  "username": "john@example.com", // Email or Mobile
+  "password": "Password123"
+}
+
+```
+
+---
+
+## 👑 2. Super Admin Module (`/api/superadmin`)
+
+*Requires Role:* `SuperAdmin`
+
+| Method | Endpoint | Description | Payload Type |
+| --- | --- | --- | --- |
+| **GET** | `/departments` | Saare onboarded Dept Heads ki list dega | None |
+| **POST** | `/departments` | Naya Dept Head create karega | `application/json` |
+| **DELETE** | `/departments/:id` | Dept Head account delete karega | Param: `id` |
+
+**Payload: `POST /departments**`
+
+```json
+{
+  "state": "Madhya Pradesh",
+  "city": "Bhopal",
+  "pincode": "462001",
+  "deptName": "PWD",
+  "headName": "Ramesh Kumar",
+  "mobile": "9988776655",
+  "email": "pwd@bhopal.gov",
+  "password": "CustomPassword123"
+}
+
+```
+
+---
+
+## 🏢 3. Department Head Module (`/api/depthead`)
+
+*Requires Role:* `DeptHead`
+
+| Method | Endpoint | Description | Payload Type |
+| --- | --- | --- | --- |
+| **GET** | `/supervisors` | Apne city/dept ke saare supervisors layega | None |
+| **POST** | `/supervisors` | Naya Supervisor banayega | `application/json` |
+| **GET** | `/complaints` | AI se route hui saari complaints layega | None |
+| **PATCH** | `/complaints/assign` | Complaint ko supervisor ko assign karega | `application/json` |
+| **PATCH** | `/complaints/approve` | Supervisor ke resolution ko Verify/Reject karega | `application/json` |
+
+**Payload: `POST /supervisors**` *(Note: State/City backend session se khud nikal lega)*
+
+```json
+{
+  "name": "Raju Mechanic",
+  "mobile": "9999988888",
+  "email": "raju@pwd.gov",
+  "password": "TempPassword123"
+}
+
+```
+
+**Payload: `PATCH /complaints/assign**`
+
+```json
+{
+  "complaintId": "65ab...cdef",
+  "supervisorId": "65ab...1234"
+}
+
+```
+
+**Payload: `PATCH /complaints/approve**`
+
+```json
+{
+  "complaintId": "65ab...cdef",
+  "action": "Approve" // Ya fir "Reject"
+}
+
+```
+
+---
+
+## 👷‍♂️ 4. Supervisor Module (`/api/supervisor`)
+
+*Requires Role:* `Supervisor`
+
+| Method | Endpoint | Description | Payload Type |
+| --- | --- | --- | --- |
+| **GET** | `/complaints` | Sirf us supervisor ko assign hui complaints layega | None |
+| **POST** | `/complaints/resolve` | Resolution proof submit karega (Photo + Note) | `multipart/form-data` |
+
+**Payload: `POST /complaints/resolve**`
+*(Backend Multer use kar raha hai, isliye isko FormData me bhejna hai, JSON me nahi)*
+
+* `complaintId`: "65ab...cdef" (Text)
+* `description`: "Pothole filled with concrete" (Text)
+* `proofImage`: [File Object] (Image File)
+
+---
+
+## 🙋‍♂️ 5. Citizen Module (`/api/citizen`)
+
+*Requires Role:* `Citizen`
+
+| Method | Endpoint | Description | Payload Type |
+| --- | --- | --- | --- |
+| **GET** | `/complaints` | Citizen ki khud ki lodge ki hui saari complaints dega | None |
+| **POST** | `/complaints` | Nayi complaint AI Engine ko bhejega | `multipart/form-data` |
+
+**Payload: `POST /complaints**`
+*(Again, FormData use karna hai kyunki optional file upload hai)*
+
+* `title`: "Huge Pothole on main road" (Text)
+* `description`: "Detailed problem description..." (Text)
+* `document`: [File Object] (Image/PDF - Optional)
+
+---
+
+## 🖼️ 6. Static File Access (Images)
+
+Jab bhi frontend me supervisor dwara upload ki gayi image dikhani ho, toh backend ke `/uploads` route ka use karna.
+
+* **URL Pattern:** `http://localhost:5000/uploads/filename.jpg`

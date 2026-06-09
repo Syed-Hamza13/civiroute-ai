@@ -32,18 +32,16 @@ export default function SuperAdminDashboard() {
   const [departments, setDepartments] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
-  // Form State
+  // 👉 CHANGE 1: Added password & retypePassword in state
   const [formData, setFormData] = useState({
-    state: '', city: '', pincode: '', deptName: '', headName: '', mobile: '', email: ''
+    state: '', city: '', pincode: '', deptName: '', headName: '', mobile: '', email: '', password: '', retypePassword: ''
   });
 
   // ==========================================
   // 🔗 API CALLS (MOCK IMPLEMENTATION)
   // ==========================================
   
-  // 1. FETCH DATA (GET: /api/superadmin/departments)
   useEffect(() => {
-    // Yahan backend se data fetch hoga. Abhi dummy data set kar rahe hain.
     setDepartments(MOCK_DEPARTMENTS);
   }, []);
 
@@ -51,19 +49,24 @@ export default function SuperAdminDashboard() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 2. CREATE NEW DEPT HEAD (POST: /api/superadmin/departments)
   const handleCreateDeptHead = (e) => {
     e.preventDefault();
+    
+    // 👉 CHANGE 2: Added validation for password matching
+    if (formData.password !== formData.retypePassword) {
+      alert("Passwords do not match! Please check again.");
+      return;
+    }
+
     console.log("🚀 Payload going to Backend:", formData);
     
-    // Mock API Success Behavior:
     const newEntry = { ...formData, id: Math.random() };
     setDepartments([...departments, newEntry]);
-    setIsDialogOpen(false); // Close Modal
-    setFormData({ state: '', city: '', pincode: '', deptName: '', headName: '', mobile: '', email: '' }); // Reset
+    setIsDialogOpen(false); 
+    // 👉 CHANGE 3: Resetting new fields
+    setFormData({ state: '', city: '', pincode: '', deptName: '', headName: '', mobile: '', email: '', password: '', retypePassword: '' }); 
   };
 
-  // 3. DELETE DEPT HEAD (DELETE: /api/superadmin/departments/:id)
   const handleDelete = (id) => {
     console.log("🗑️ Deleting ID from Backend:", id);
     setDepartments(departments.filter(dept => dept.id !== id));
@@ -71,14 +74,12 @@ export default function SuperAdminDashboard() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
-      {/* Header Section */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Super Admin Portal</h1>
           <p className="text-zinc-500">Manage client municipalities, states, and department heads.</p>
         </div>
         
-        {/* CREATE MODAL TRIGGER */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-zinc-900 text-white">
@@ -94,10 +95,8 @@ export default function SuperAdminDashboard() {
               </DialogDescription>
             </DialogHeader>
             
-            {/* CREATE FORM */}
             <form onSubmit={handleCreateDeptHead} className="space-y-4 mt-4">
               <div className="grid grid-cols-2 gap-4">
-                {/* Geolocation Section */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium">State</label>
                   <select name="state" value={formData.state} onChange={handleInputChange} required className="w-full p-2 border rounded-md outline-none">
@@ -143,6 +142,17 @@ export default function SuperAdminDashboard() {
                     <label className="text-sm font-medium">Official Email (Used for Login)</label>
                     <Input type="email" name="email" value={formData.email} onChange={handleInputChange} required placeholder="admin@department.gov.in" />
                   </div>
+                  
+                  {/* 👉 CHANGE 4: Added Password & Confirm Password Fields here */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Set Password</label>
+                    <Input type="password" name="password" value={formData.password} onChange={handleInputChange} required placeholder="••••••••" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Confirm Password</label>
+                    <Input type="password" name="retypePassword" value={formData.retypePassword} onChange={handleInputChange} required placeholder="••••••••" />
+                  </div>
+
                 </div>
               </div>
 
@@ -156,59 +166,26 @@ export default function SuperAdminDashboard() {
 
       {/* KPI Cards Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-zinc-500">Active States</CardTitle>
-            <MapPin className="h-4 w-4 text-zinc-400" />
-          </CardHeader>
-          <CardContent><div className="text-2xl font-bold">3</div></CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-zinc-500">Total Departments</CardTitle>
-            <Building2 className="h-4 w-4 text-zinc-400" />
-          </CardHeader>
-          <CardContent><div className="text-2xl font-bold">{departments.length}</div></CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-zinc-500">Active Officials</CardTitle>
-            <Users className="h-4 w-4 text-zinc-400" />
-          </CardHeader>
-          <CardContent><div className="text-2xl font-bold">{departments.length}</div></CardContent>
-        </Card>
+        <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-zinc-500">Active States</CardTitle><MapPin className="h-4 w-4 text-zinc-400" /></CardHeader><CardContent><div className="text-2xl font-bold">3</div></CardContent></Card>
+        <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-zinc-500">Total Departments</CardTitle><Building2 className="h-4 w-4 text-zinc-400" /></CardHeader><CardContent><div className="text-2xl font-bold">{departments.length}</div></CardContent></Card>
+        <Card><CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-zinc-500">Active Officials</CardTitle><Users className="h-4 w-4 text-zinc-400" /></CardHeader><CardContent><div className="text-2xl font-bold">{departments.length}</div></CardContent></Card>
       </div>
 
       {/* Data Table Section */}
       <Card>
-        <CardHeader>
-          <CardTitle>Onboarded Department Heads</CardTitle>
-        </CardHeader>
+        <CardHeader><CardTitle>Onboarded Department Heads</CardTitle></CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Department</TableHead>
-                <TableHead>Location</TableHead>
-                <TableHead>Head Official</TableHead>
-                <TableHead>Contact Info</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
+              <TableRow><TableHead>Department</TableHead><TableHead>Location</TableHead><TableHead>Head Official</TableHead><TableHead>Contact Info</TableHead><TableHead className="text-right">Actions</TableHead></TableRow>
             </TableHeader>
             <TableBody>
               {departments.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-6 text-zinc-500">No departments found. Add one to get started.</TableCell>
-                </TableRow>
+                <TableRow><TableCell colSpan={5} className="text-center py-6 text-zinc-500">No departments found. Add one to get started.</TableCell></TableRow>
               ) : (
                 departments.map((dept) => (
                   <TableRow key={dept.id}>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4 text-zinc-400" />
-                        {dept.deptName}
-                      </div>
-                    </TableCell>
+                    <TableCell className="font-medium"><div className="flex items-center gap-2"><Building2 className="h-4 w-4 text-zinc-400" />{dept.deptName}</div></TableCell>
                     <TableCell>{dept.city}, {dept.state}</TableCell>
                     <TableCell>{dept.headName}</TableCell>
                     <TableCell>
@@ -218,9 +195,7 @@ export default function SuperAdminDashboard() {
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(dept.id)} className="text-red-500 hover:text-red-700 hover:bg-red-50">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(dept.id)} className="text-red-500 hover:text-red-700 hover:bg-red-50"><Trash2 className="h-4 w-4" /></Button>
                     </TableCell>
                   </TableRow>
                 ))

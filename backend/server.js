@@ -6,6 +6,10 @@ const connectDB = require('./config/db');
 
 // Import Routes
 const authRoutes = require('./routes/auth.routes');
+const superAdminRoutes = require('./routes/superadmin.routes');
+const deptHeadRoutes = require('./routes/depthead.routes');
+const citizenRoutes = require('./routes/citizen.routes');
+const supervisorRoutes = require('./routes/supervisor.routes');
 
 const app = express();
 
@@ -36,6 +40,13 @@ app.use(session({
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/superadmin', superAdminRoutes);
+app.use('/api/depthead', deptHeadRoutes);
+app.use('/api/citizen', citizenRoutes);
+app.use('/api/supervisor', supervisorRoutes);
+
+// Ye line frontend ko backend images access karne degi
+app.use('/uploads', express.static('uploads'));
 
 // Base Route
 app.get('/', (req, res) => {
